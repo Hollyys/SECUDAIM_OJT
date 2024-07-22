@@ -113,3 +113,6 @@ $RECYCLE.BIN/
 
 # Windows VScode
 .vscode
+
+# Notebook
+.ipynb_checkpoints/
