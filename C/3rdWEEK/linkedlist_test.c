@@ -162,6 +162,9 @@ int main(){
 
 		search(5);
 
+        remove_key(30);
+		display();
+
 		display();
 
 		free(hashTable);
