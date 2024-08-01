@@ -65,7 +65,7 @@ void remove_key(int key){
 							if(node->next != NULL){
 								node->next->previous = NULL;
 							}
-								hashtable[hashindex].head = node->next;
+							hashtable[hashindex].head = node->next;
 						}
 						else{
 							if(node->previous != NULL){
