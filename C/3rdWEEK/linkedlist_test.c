@@ -131,23 +131,40 @@ int main(){
     // 해시테이블 메모리 할당
     hashTable = (struct bucket *)malloc(BUCKET_SIZE * sizeof(struct bucket));
     
-    // 15 까지 값 추가
-    for (int i=0; i < 16; i++){
-        add(i, 10*i);
-    }
-    // 몇개 더 추가
-    add(21, 210);
-    add(31, 310);
-    add(41, 410);
+    printf("\nHASH TABLE Bucket memory check\n");
 
-    display();
+		display();
 
-    remove_key(31);
-    remove_key(11);
-    remove_key(51);
+		for(int i=0; i<17; i++)
+		{
+				add(i, 10*i);
+		}
+		display();
 
-    display();
+		remove_key(14);
+		display();
 
-    search(11);
-    search(1);
+		remove_key(1);
+		display();
+
+		remove_key(10);
+		display();
+
+		remove_key(7);
+		display();
+
+		remove_key(30);
+		display();
+
+		add(32, 320);
+		add(62, 620);
+		display();
+
+		search(5);
+
+		display();
+
+		free(hashtable);
+
+		return 0;
 }
