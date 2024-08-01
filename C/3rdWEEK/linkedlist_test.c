@@ -144,27 +144,7 @@ int main(){
 		remove_key(14);
 		display();
 
-		remove_key(1);
-		display();
-
-		remove_key(10);
-		display();
-
-		remove_key(7);
-		display();
-
-		remove_key(30);
-		display();
-
-		add(32, 320);
-		add(62, 620);
-		display();
-
-		search(5);
-
-        remove_key(30);
-		display();
-
+		remove_key(11);
 		display();
 
 		free(hashTable);
