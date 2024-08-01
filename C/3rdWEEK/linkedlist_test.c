@@ -164,7 +164,7 @@ int main(){
 
 		display();
 
-		free(hashtable);
+		free(hashTable);
 
 		return 0;
 }
