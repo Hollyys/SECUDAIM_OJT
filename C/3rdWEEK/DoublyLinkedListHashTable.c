@@ -136,11 +136,17 @@ int main(){
 		display();
 
 		remove_key(14);
+		display();
+
 		remove_key(7);
+		display();
+
 		remove_key(30);
+		display();
 
 		add(32, 320);
 		add(62, 620);
+		display();
 
 		search(5);
 
