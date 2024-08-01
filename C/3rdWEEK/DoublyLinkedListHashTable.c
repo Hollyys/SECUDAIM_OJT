@@ -138,7 +138,7 @@ int main(){
 		remove_key(14);
 		display();
 
-		remove_key(14);
+		remove_key(10);
 		display();
 
 		remove_key(7);
