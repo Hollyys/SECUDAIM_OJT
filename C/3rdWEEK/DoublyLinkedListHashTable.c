@@ -138,6 +138,9 @@ int main(){
 		remove_key(14);
 		display();
 
+		remove_key(1);
+		display();
+
 		remove_key(10);
 		display();
 
