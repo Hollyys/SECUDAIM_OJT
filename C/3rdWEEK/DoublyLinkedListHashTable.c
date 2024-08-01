@@ -62,12 +62,18 @@ void remove_key(int key){
 		while(node != NULL){
 				if(node->key == key){
 						if(node == hashtable[hashindex].head){
+							if(node->next != NULL){
 								node->next->previous = NULL;
+							}
 								hashtable[hashindex].head = node->next;
 						}
 						else{
+							if(node->previous != NULL){
 								node->previous->next = node->next;
+							}
+							if(node->next != NULL){
 								node->next->previous = node->previous;
+							}
 						}
 						hashtable[hashindex].count--;
 						free(node);
