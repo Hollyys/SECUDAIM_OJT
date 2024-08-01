@@ -119,7 +119,7 @@ void display(){
 				printf("Bucket[%d] : (Count: %d), ", i, hashtable[i].count);
 				while(iterator != NULL)
 				{
-						printf("(key : %d, val: %d) -> ", iterator->key, iterator->value);
+						printf("(key : %d, val: %d) <-> ", iterator->key, iterator->value);
 						iterator = iterator->next;
 				}
 				printf("\n");
