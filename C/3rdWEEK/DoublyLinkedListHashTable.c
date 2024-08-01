@@ -133,6 +133,7 @@ int main(){
 		{
 				add(i, 10*i);
 		}
+		display();
 
 		remove_key(14);
 		remove_key(7);
