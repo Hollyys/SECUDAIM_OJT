@@ -35,4 +35,6 @@ int main(){
 void *func(void *arg){
     int number = *((int*)(&arg));
     printf("[Thread(%d)] is running.\n", number);
+
+    sleep(10);
 }
