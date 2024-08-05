@@ -14,7 +14,7 @@ void benchmark(int THREAD_COUNT){
     void *result;
 
     for(int i=0; i<THREAD_COUNT; i++){
-        if(pthread_create((thread[i]), NULL, func, (void *)i) != 0){
+        if(pthread_create(&(thread[i]), NULL, func, (void *)i) != 0){
             printf("THREAD CREATION FAILED\n");
             exit(1);
         }
