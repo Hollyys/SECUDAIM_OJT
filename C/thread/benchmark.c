@@ -9,6 +9,12 @@
 #define COUNT 1000000
 
 void *func(void *arg);
+// normal variable
+// TLS variable
+// shared variable
+// atomic variable
+// spin lock
+// semaphore (mutex)
 
 void benchmark(int THREAD_COUNT){
     pthread_t thread[THREAD_COUNT];
@@ -34,8 +40,9 @@ int main(){
 }
 
 void *func(void *arg){
-    int number = *((int*)(&arg));
-    printf("[Thread(%d)] is running.\n", number);
+    printf("[Thread(%d)] is running.\n", *((int*)(&arg)));
+    sleep(5);
+    printf("[Thread(%d)] is finish.\n", *((int*)(&arg)));
 
-    sleep(10);
+    pthread_exit(NULL);
 }
