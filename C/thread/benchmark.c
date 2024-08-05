@@ -22,7 +22,7 @@ void benchmark(int THREAD_COUNT){
 
     for(int i=0; i<THREAD_COUNT; i++){
         if(pthread_join(thread[i], &result) != 0){
-            printf("Join Thread Fail\n")
+            printf("Join Thread Fail\n");
         }
     }
 }
@@ -33,6 +33,6 @@ int main(){
 }
 
 void *func(void *arg){
-    number = *((int*)(&arg));
+    int number = *((int*)(&arg));
     printf("[Thread(%d)] is running.\n", number);
 }
