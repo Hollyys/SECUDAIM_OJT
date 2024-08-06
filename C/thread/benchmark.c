@@ -241,7 +241,7 @@ void *atomic(void *arg)
 
 void *spinlock(void *arg)
 {
-    spinlockvariable *variable = (spinlockvariable *)args;
+    spinlockvariable *variable = (spinlockvariable *)arg;
     
     for (int i = 0; i < COUNT; i++)
     {
