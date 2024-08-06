@@ -29,7 +29,7 @@ void *atomic(void *arg);
 
 // spin lock
 int spinlock_variable = 0;
-pthread_spinlock_t lock = 0;
+pthread_spinlock_t lock;
 void *spinlock(void *arg);
 
 // semaphore (mutex)
@@ -135,7 +135,7 @@ void benchmark(int THREAD_COUNT)
 
     // spin lock
     start = clock();
-    printf("\n========== SPIN LOCK ==========\n");
+    printf("\n========== SPIN LOCK ===========\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
         if (pthread_create(&(thread[i]), NULL, spinlock, NULL) != 0)
@@ -153,6 +153,7 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
+    pthread_spin_destroy(&lock);
     printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     // semaphore (mutex)
