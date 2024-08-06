@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -6,7 +7,7 @@
 #include <stdatomic.h>
 #include <time.h>
 
-#define COUNT 1000000
+#define COUNT 10000000000000
 
 // test
 void *test(void *arg);
@@ -45,6 +46,7 @@ void benchmark(int THREAD_COUNT)
     // local variable
     time(&start);
     printf("\n======== LOCAL VARIABLE ========\n");
+    
     for (int i = 0; i < THREAD_COUNT; i++)
     {
         if (pthread_create(&(thread[i]), NULL, local, NULL)
