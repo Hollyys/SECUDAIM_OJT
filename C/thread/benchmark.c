@@ -157,7 +157,6 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    pthread_spin_destroy(&lock);
     printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     // semaphore (mutex)
@@ -250,7 +249,7 @@ void *spinlock(void *arg)
         variable->value++;
         pthread_spin_unlock(&(variable->lock));
     }
-    printf("Variable result: %d\n", spinlock_variable);
+    printf("Variable result: %d\n", variable->value);
     
     pthread_exit(NULL);
 }
