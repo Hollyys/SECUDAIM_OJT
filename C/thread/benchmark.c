@@ -229,7 +229,8 @@ void *atomic(void *arg)
 {
     for (int i = 0; i < COUNT; i++)
     {
-        atomic_variable++;
+        // atomic_variable++;
+        atomic_fetch_add(&atomic_variable, 1);
     }
     printf("Variable result: %d\n", atomic_variable);
     pthread_exit(NULL);
@@ -242,8 +243,8 @@ void *spinlock(void *arg)
     {
         spinlock_variable++;
     }
-    pthread_spin_unlock(&lock);
     printf("Variable result: %d\n", spinlock_variable);
+    pthread_spin_unlock(&lock);
     pthread_exit(NULL);
 }
 
