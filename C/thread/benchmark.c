@@ -29,8 +29,7 @@ void *atomic(void *arg);
 
 // spin lock
 int spinlock_variable = 0;
-pthread_spinlock_t lock;
-pthread_spin_init(&lock, 0);
+pthread_spinlock_t lock = 0;
 void *spinlock(void *arg);
 
 // semaphore (mutex)
