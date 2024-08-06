@@ -41,10 +41,10 @@ void benchmark(int THREAD_COUNT)
 {
     pthread_t thread[THREAD_COUNT];
     void *result;
-    time_t start, end;
+    // time_t start, end;
 
     // local variable
-    time(&start);
+    clock_t start = clock();
     printf("\n======== LOCAL VARIABLE ========\n");
     
     for (int i = 0; i < THREAD_COUNT; i++)
@@ -63,11 +63,11 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    time(&end);
-    printf("Run time: %f\n", (float)(end-start));
+    clock_t end = clock();
+    printf("Run time: %lf\n", (double)(end-start));
 
     // shared variable
-    time(&start);
+    clock_t start = clock();
     printf("\n======= SHARED VARIABLE =======\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
@@ -85,11 +85,11 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    time(&end);
-    printf("Run time: %f\n", (float)(end-start));
+    clock_t end = clock();
+    printf("Run time: %lf\n", (double)(end-start));
 
     // TLS variable
-    time(&start);
+    clock_t start = clock();
     printf("\n========= TLS VARIABLE =========\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
@@ -107,11 +107,11 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    time(&end);
-    printf("Run time: %f\n", (float)(end-start));
+    clock_t end = clock();
+    printf("Run time: %lf\n", (double)(end-start));
 
     // atomic variable
-    time(&start);
+    clock_t start = clock();
     printf("\n======= ATOMIC VARIABLE =======\n");
     void *atomic(void *arg);
     for (int i = 0; i < THREAD_COUNT; i++)
@@ -130,11 +130,11 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    time(&end);
-    printf("Run time: %f\n", (float)(end-start));
+    clock_t end = clock();
+    printf("Run time: %lf\n", (double)(end-start));
 
     // spin lock
-    time(&start);
+    clock_t start = clock();
     printf("\n========= SPIN LOCK =========\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
@@ -152,11 +152,11 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    time(&end);
-    printf("Run time: %f\n", (float)(end-start));
+    clock_t end = clock();
+    printf("Run time: %lf\n", (double)(end-start));
 
     // semaphore (mutex)
-    time(&start);
+    clock_t start = clock();
     printf("\n========== SEMAPHORE ==========\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
@@ -174,8 +174,8 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    time(&end);
-    printf("Run time: %f\n", (float)(end-start));
+    clock_t end = clock();
+    pprintf("Run time: %lf\n", (double)(end-start));
 }
 
 int main()
