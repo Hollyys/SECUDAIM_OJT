@@ -7,7 +7,7 @@
 #include <stdatomic.h>
 #include <time.h>
 
-#define COUNT 1000000000
+#define COUNT 10000000
 
 // test
 void *test(void *arg);
@@ -64,11 +64,11 @@ void benchmark(int THREAD_COUNT)
         }
     }
     clock_t end = clock();
-    printf("Run time: %lf\n", (double)(end-start));
+    printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     // shared variable
     start = clock();
-    printf("\n======= SHARED VARIABLE =======\n");
+    printf("\n======= SHARED VARIABLE ========\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
         if (pthread_create(&(thread[i]), NULL, shared, NULL) != 0)
@@ -86,7 +86,8 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    printf("Run time: %lf\n", (double)(end-start));
+    printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Variable result: %d\n", shared_variable);
 
     // TLS variable
     start = clock();
@@ -108,11 +109,12 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    printf("Run time: %lf\n", (double)(end-start));
+    printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Variable result: %d\n", tls_variable);
 
     // atomic variable
     start = clock();
-    printf("\n======= ATOMIC VARIABLE =======\n");
+    printf("\n======= ATOMIC VARIABLE ========\n");
     void *atomic(void *arg);
     for (int i = 0; i < THREAD_COUNT; i++)
     {
@@ -131,11 +133,12 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    printf("Run time: %lf\n", (double)(end-start));
+    printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Variable result: %d\n", atomic_variable);
 
     // spin lock
     start = clock();
-    printf("\n========= SPIN LOCK =========\n");
+    printf("\n========== SPIN LOCK ==========\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
         if (pthread_create(&(thread[i]), NULL, spinlock, NULL) != 0)
@@ -153,7 +156,8 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    printf("Run time: %lf\n", (double)(end-start));
+    printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Variable result: %d\n", spinlock_variable);
 
     // semaphore (mutex)
     start = clock();
@@ -175,7 +179,8 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    printf("Run time: %lf\n", (double)(end-start));
+    printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Variable result: %d\n", semaphore_variable);
 }
 
 int main()
@@ -200,6 +205,7 @@ void *local()
     {
         local_variable++;
     }
+    printf("Variable result: %d\n", local_variable);
     pthread_exit(NULL);
 }
 
