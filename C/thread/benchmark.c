@@ -7,7 +7,7 @@
 #include <stdatomic.h>
 #include <time.h>
 
-#define COUNT 1000000000000
+#define COUNT 1000000000
 
 // test
 void *test(void *arg);
