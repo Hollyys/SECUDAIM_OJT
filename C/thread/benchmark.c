@@ -49,7 +49,7 @@ void benchmark(int THREAD_COUNT)
     
     for (int i = 0; i < THREAD_COUNT; i++)
     {
-        if (pthread_create(&(thread[i]), NULL, local, NULL)
+        if (pthread_create(&(thread[i]), NULL, local, NULL))
         {
             printf("THREAD CREATION FAILED\n");
             exit(1);
