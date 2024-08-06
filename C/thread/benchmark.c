@@ -245,9 +245,9 @@ void *spinlock(void *arg)
     
     for (int i = 0; i < COUNT; i++)
     {
-        pthread_spin_lock(&(variable->lock));
+        pthread_spin_lock(&variable->lock);
         variable->value++;
-        pthread_spin_unlock(&(variable->lock));
+        pthread_spin_unlock(&variable->lock);
     }
     printf("Variable result: %d\n", variable->value);
     
