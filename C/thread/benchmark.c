@@ -30,6 +30,7 @@ void *atomic(void *arg);
 // spin lock
 int spinlock_variable = 0;
 pthread_spinlock_t lock;
+pthread_spin_init(&lock, 0);
 void *spinlock(void *arg);
 
 // semaphore (mutex)
@@ -87,7 +88,6 @@ void benchmark(int THREAD_COUNT)
     }
     end = clock();
     printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
-    printf("Variable result: %d\n", shared_variable);
 
     // TLS variable
     start = clock();
@@ -110,7 +110,6 @@ void benchmark(int THREAD_COUNT)
     }
     end = clock();
     printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
-    printf("Variable result: %d\n", tls_variable);
 
     // atomic variable
     start = clock();
@@ -134,7 +133,6 @@ void benchmark(int THREAD_COUNT)
     }
     end = clock();
     printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
-    printf("Variable result: %d\n", atomic_variable);
 
     // spin lock
     start = clock();
@@ -157,7 +155,6 @@ void benchmark(int THREAD_COUNT)
     }
     end = clock();
     printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
-    printf("Variable result: %d\n", spinlock_variable);
 
     // semaphore (mutex)
     start = clock();
@@ -180,7 +177,6 @@ void benchmark(int THREAD_COUNT)
     }
     end = clock();
     printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
-    printf("Variable result: %d\n", semaphore_variable);
 }
 
 int main()
@@ -201,7 +197,7 @@ void *test(void *arg)
 void *local()
 {
     int local_variable = 0;
-    for (int i; i < COUNT; i++)
+    for (int i = 0; i < COUNT; i++)
     {
         local_variable++;
     }
@@ -211,49 +207,54 @@ void *local()
 
 void *shared(void *arg)
 {
-    for (int i; i < COUNT; i++)
+    for (int i = 0; i < COUNT; i++)
     {
         shared_variable++;
     }
+    printf("Variable result: %d\n", shared_variable);
     pthread_exit(NULL);
 }
 
 void *tls(void *arg)
 {
-    for (int i; i < COUNT; i++)
+    for (int i = 0; i < COUNT; i++)
     {
         tls_variable++;
     }
+    printf("Variable result: %d\n", tls_variable);
     pthread_exit(NULL);
 }
 
 void *atomic(void *arg)
 {
-    for (int i; i < COUNT; i++)
+    for (int i = 0; i < COUNT; i++)
     {
         atomic_variable++;
     }
+    printf("Variable result: %d\n", atomic_variable);
     pthread_exit(NULL);
 }
 
 void *spinlock(void *arg)
 {
     pthread_spin_lock(&lock);
-    for (int i; i < COUNT; i++)
+    for (int i = 0; i < COUNT; i++)
     {
         spinlock_variable++;
     }
     pthread_spin_unlock(&lock);
+    printf("Variable result: %d\n", spinlock_variable);
     pthread_exit(NULL);
 }
 
 void *semaphore(void *arg)
 {
-    for (int i; i < COUNT; i++)
+    for (int i = 0; i < COUNT; i++)
     {
         sem_wait(&sem);
         semaphore_variable++;
         sem_post(&semaphore);
     }
+    printf("Variable result: %d\n", semaphore_variable);
     pthread_exit(NULL);
 }
