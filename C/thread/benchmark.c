@@ -98,9 +98,7 @@ void benchmark(int THREAD_COUNT)
             printf("THREAD CREATION FAILED\n");
             exit(1);
         }
-    }
-    time(&end);
-    printf("Run time: %f\n", (float)(end-start));
+    }ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 
     for (int i = 0; i < THREAD_COUNT; i++)
     {
