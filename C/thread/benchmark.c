@@ -242,13 +242,13 @@ void *atomic(void *arg)
 
 void *spinlock(void *arg)
 {
-    spinlockvariable *vaiable = (spinlockvariable *)args;
+    spinlockvariable *variable = (spinlockvariable *)args;
     
     for (int i = 0; i < COUNT; i++)
     {
-        pthread_spin_lock(&lock);
-        spinlock_variable++;
-        pthread_spin_unlock(&lock);
+        pthread_spin_lock(&(variable->lock));
+        variable->value++;
+        pthread_spin_unlock(&(variable->lock));
     }
     printf("Variable result: %d\n", spinlock_variable);
     
