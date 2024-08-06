@@ -67,7 +67,7 @@ void benchmark(int THREAD_COUNT)
     printf("Run time: %lf\n", (double)(end-start));
 
     // shared variable
-    clock_t start = clock();
+    start = clock();
     printf("\n======= SHARED VARIABLE =======\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
@@ -85,11 +85,11 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    clock_t end = clock();
+    end = clock();
     printf("Run time: %lf\n", (double)(end-start));
 
     // TLS variable
-    clock_t start = clock();
+    start = clock();
     printf("\n========= TLS VARIABLE =========\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
@@ -107,11 +107,11 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    clock_t end = clock();
+    end = clock();
     printf("Run time: %lf\n", (double)(end-start));
 
     // atomic variable
-    clock_t start = clock();
+    start = clock();
     printf("\n======= ATOMIC VARIABLE =======\n");
     void *atomic(void *arg);
     for (int i = 0; i < THREAD_COUNT; i++)
@@ -130,11 +130,11 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    clock_t end = clock();
+    end = clock();
     printf("Run time: %lf\n", (double)(end-start));
 
     // spin lock
-    clock_t start = clock();
+    start = clock();
     printf("\n========= SPIN LOCK =========\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
@@ -152,11 +152,11 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    clock_t end = clock();
+    end = clock();
     printf("Run time: %lf\n", (double)(end-start));
 
     // semaphore (mutex)
-    clock_t start = clock();
+    start = clock();
     printf("\n========== SEMAPHORE ==========\n");
     for (int i = 0; i < THREAD_COUNT; i++)
     {
@@ -174,7 +174,7 @@ void benchmark(int THREAD_COUNT)
             printf("Join Thread Fail\n");
         }
     }
-    clock_t end = clock();
+    end = clock();
     pprintf("Run time: %lf\n", (double)(end-start));
 }
 
