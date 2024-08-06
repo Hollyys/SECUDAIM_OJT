@@ -30,6 +30,10 @@ void *atomic(void *arg);
 // spin lock
 int spinlock_variable = 0;
 pthread_spinlock_t lock;
+// typedef struct {
+//     int value;
+//     pthread_spinlock_t lock;
+// } spinlockvariable;
 void *spinlock(void *arg);
 
 // semaphore (mutex)
@@ -238,13 +242,16 @@ void *atomic(void *arg)
 
 void *spinlock(void *arg)
 {
-    pthread_spin_lock(&lock);
+    // spinlockvariable *vaiable = (spinlockvariable *)args;
+    
     for (int i = 0; i < COUNT; i++)
     {
+        pthread_spin_lock(&lock);
         spinlock_variable++;
+        pthread_spin_unlock(&lock);
     }
     printf("Variable result: %d\n", spinlock_variable);
-    pthread_spin_unlock(&lock);
+    
     pthread_exit(NULL);
 }
 
