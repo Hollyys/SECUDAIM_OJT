@@ -86,7 +86,7 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     // TLS variable
     start = clock();
@@ -108,7 +108,7 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     // atomic variable
     start = clock();
@@ -131,7 +131,7 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     // spin lock
     start = clock();
@@ -153,7 +153,7 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     // semaphore (mutex)
     start = clock();
@@ -175,7 +175,7 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    printf("Run time: %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
 }
 
 int main()
