@@ -175,7 +175,7 @@ void benchmark(int THREAD_COUNT)
         }
     }
     end = clock();
-    pprintf("Run time: %lf\n", (double)(end-start));
+    printf("Run time: %lf\n", (double)(end-start));
 }
 
 int main()
