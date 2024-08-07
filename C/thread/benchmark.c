@@ -131,7 +131,7 @@ void benchmark(int THREAD_COUNT) {
 
     // Semaphore variable test
     start = clock();
-    printf("\n========== SEMAPHORE ==========\n");
+    printf("\n========== SEMAPHORE ===========\n");
     semaphore_variable = 0; // Reset for accurate measurement
     for (int i = 0; i < THREAD_COUNT; i++) {
         if (pthread_create(&(thread[i]), NULL, semaphore, NULL) != 0) {
@@ -147,6 +147,8 @@ void benchmark(int THREAD_COUNT) {
     end = clock();
     printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
     printf("Variable result: %d\n", semaphore_variable);
+
+    printf("\n======== TEST FINISHED =========\n\n");
 }
 
 int main() {
@@ -154,6 +156,8 @@ int main() {
     sem_init(&sem, 0, 1);
 
     benchmark(5);
+    benchmark(10);
+    benchmark(20);
 
     // Destroy semaphore
     sem_destroy(&sem);
