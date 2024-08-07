@@ -37,6 +37,7 @@ void benchmark(int THREAD_COUNT) {
 
     // Local variable test
     start = clock();
+    printf("\n====== THREAD COUNT: %d ======", THREAD_COUNT);
     printf("\n======== LOCAL VARIABLE ========\n");
     for (int i = 0; i < THREAD_COUNT; i++) {
         if (pthread_create(&(thread[i]), NULL, local, NULL)) {
