@@ -5,7 +5,7 @@
 #include <stdatomic.h>
 #include <time.h>
 
-#define COUNT 10000000
+#define COUNT 100000000
 
 // Function prototypes
 void *local();
