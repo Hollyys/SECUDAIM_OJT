@@ -194,7 +194,7 @@ void *tls(void *arg) {
         tls_variable++;
     }
     printf("TLS Variable result: %d\n", tls_variable);
-    sum += local_variable;
+    sum += tls_variable;
     pthread_exit(NULL);
 }
 
