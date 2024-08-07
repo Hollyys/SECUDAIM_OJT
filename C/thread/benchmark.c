@@ -177,7 +177,7 @@ void *local() {
     for (int i = 0; i < COUNT; i++) {
         local_variable++;
     }
-    printf("Local Variable result: %d\n", local_variable);
+    // printf("Local Variable result: %d\n", local_variable);
     sum += local_variable;
     pthread_exit(NULL);
 }
@@ -193,7 +193,7 @@ void *tls(void *arg) {
     for (int i = 0; i < COUNT; i++) {
         tls_variable++;
     }
-    printf("TLS Variable result: %d\n", tls_variable);
+    // printf("TLS Variable result: %d\n", tls_variable);
     sum += tls_variable;
     pthread_exit(NULL);
 }
