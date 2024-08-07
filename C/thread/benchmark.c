@@ -21,6 +21,8 @@ atomic_int atomic_variable = 0;
 int semaphore_variable = 0;
 __thread int tls_variable = 0;
 
+int sum = 0;
+
 // Spinlock variable structure
 typedef struct {
     int value;
@@ -52,6 +54,8 @@ void benchmark(int THREAD_COUNT) {
     }
     end = clock();
     printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Variable result: %d\n", sum);
+    sum = 0;
 
     // Shared variable test
     start = clock();
@@ -88,6 +92,8 @@ void benchmark(int THREAD_COUNT) {
     }
     end = clock();
     printf("Run time: %lf Sec\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Variable result: %d\n", sum);
+    sum = 0;
 
     // Atomic variable test
     start = clock();
@@ -172,6 +178,7 @@ void *local() {
         local_variable++;
     }
     printf("Local Variable result: %d\n", local_variable);
+    sum += local_variable;
     pthread_exit(NULL);
 }
 
@@ -187,6 +194,7 @@ void *tls(void *arg) {
         tls_variable++;
     }
     printf("TLS Variable result: %d\n", tls_variable);
+    sum += local_variable;
     pthread_exit(NULL);
 }
 
