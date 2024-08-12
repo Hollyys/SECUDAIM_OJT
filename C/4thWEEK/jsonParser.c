@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include <time.h>
 #include "parson.h"
 
@@ -23,7 +24,6 @@ char* stringGenerator(){
     char *output = malloc(stringLenth+1);
 
     for(int i=0; i<stringLenth; i++){
-        // srand((unsigned int)time(NULL));
         int key = rand()%52;
         // printf("%c ", charSet[key]);
         output[i] = charSet[key];
@@ -36,7 +36,8 @@ char* stringGenerator(){
 
 int main(){
     struct Setting setting;
-    bool log = true;
+    bool log = false;
+    srand((unsigned int)time(NULL));
 
     JSON_Value *rootValue = json_parse_file("jparser.json");
     if(rootValue == NULL){
@@ -57,11 +58,17 @@ int main(){
         printf("Repeat: %d\n", setting.repeat);
         printf("Thread Num: %d\n", setting.thread_num);
         printf("Thread:\n");
-        for(int i=0; i<setting.thread_num; i++){
-            JSON_Object *threadObject = json_array_get_object(threadArray, i);
-            const char *thread_name = json_object_get_string(threadObject, "name");
+    }
+
+    for(int i=0; i<setting.thread_num; i++){
+        JSON_Object *threadObject = json_array_get_object(threadArray, i);
+        const char *thread_name = json_object_get_string(threadObject, "name");
+        if(log){
             printf("    Name: %s\n", thread_name);
         }
+    }
+
+    if(log){
         printf("*************************\n\n");
     }
 
