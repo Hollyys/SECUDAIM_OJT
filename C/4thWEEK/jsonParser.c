@@ -47,7 +47,7 @@ void* function(void *arg) {
     rootValue = json_value_init_object();
     rootObject = json_value_get_object(rootValue);
 
-    json_object_set_string(rootObject, "repeat_cnt", args->jsonInput->repeat);
+    json_object_set_number(rootObject, "repeat_cnt", args->jsonInput->repeat);
 
     JSON_Value *repeatArrayValue = json_value_init_array();
     JSON_Array *repeatArray = json_value_get_array(repeatArrayValue);
