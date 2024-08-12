@@ -44,7 +44,7 @@ void* function(void *arg) {
     JSON_Value *rootValue;
     JSON_Object *rootObject;
 
-    rootValue = json_value_init_objrct();
+    rootValue = json_value_init_object();
     rootObject = json_value_get_object(rootValue);
 
     json_object_set_string(rootObject, "repeat_cnt", args->jsonInput->repeat);
