@@ -23,7 +23,7 @@ char* stringGenerator(){
     char *output = malloc(stringLenth+1);
 
     for(int i=0; i<stringLenth; i++){
-        srand((unsigned int)time(NULL));
+        // srand((unsigned int)time(NULL));
         int key = rand()%52;
         printf("%c ", charSet[key]);
         output[i] = charSet[key];
