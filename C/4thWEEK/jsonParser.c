@@ -8,57 +8,57 @@
 
 #define MAX_THREADS 5
 
-struct Thread{
-    /* data */
+struct Thread {
     char name[20];
 };
 
-struct Setting{
-    /* data */
+struct Setting {
     int repeat;
     int thread_num;
     struct Thread thread[MAX_THREADS];
 };
 
-struct ThreadArgs{
+struct ThreadArgs {
     int id;
-    struct Setting jsonInput;
+    struct Setting *jsonInput; // 포인터로 수정
 };
 
-char* stringGenerator(){
-    int stringLenth = 10;
+char* stringGenerator() {
+    int stringLength = 10;
     char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    char *output = malloc(stringLenth+1);
+    char *output = malloc(stringLength + 1);
 
-    for(int i=0; i<stringLenth; i++){
-        int key = rand()%52;
+    for (int i = 0; i < stringLength; i++) {
+        int key = rand() % 52;
         output[i] = charSet[key];
     }
-    output[stringLenth] = '\0';
+    output[stringLength] = '\0';
 
     return output;
 }
 
-void* function(void *arg){
-    // Casting to Pointer
+void* function(void *arg) {
+    // 포인터로 캐스팅
     struct ThreadArgs *args = (struct ThreadArgs *)arg;
 
-    printf("repeat: %d\n", arg.jsonInput.repeat);
-    printf("thread_num: %d\n", arg.jsonInput.thread_num);
-    printf("name: %s\n", arg.jsonInput.thread[arg.id].name);
+    printf("repeat: %d\n", args->jsonInput->repeat);
+    printf("thread_num: %d\n", args->jsonInput->thread_num);
+    printf("name: %s\n", args->jsonInput->thread[args->id].name);
+
+    return NULL;
 }
 
-int main(){
+int main() {
     struct Setting setting;
     srand((unsigned int)time(NULL));
 
     JSON_Value *rootValue = json_parse_file("jparser.json");
-    if(rootValue == NULL){
+    if (rootValue == NULL) {
         fprintf(stderr, "Error parsing JSON file\n");
         return 1;
     }
     JSON_Object *rootObject = json_value_get_object(rootValue);
-    if(rootObject == NULL){
+    if (rootObject == NULL) {
         fprintf(stderr, "Error accessing JSON object\n");
         return 1;
     }
@@ -66,7 +66,7 @@ int main(){
     setting.thread_num = (int)json_object_get_number(rootObject, "thread_num");
     JSON_Array *threadArray = json_object_get_array(rootObject, "thread");
 
-    for(int i=0; i<setting.thread_num; i++){
+    for (int i = 0; i < setting.thread_num; i++) {
         JSON_Object *threadObject = json_array_get_object(threadArray, i);
         const char *thread_name = json_object_get_string(threadObject, "name");
         strcpy(setting.thread[i].name, thread_name);
@@ -76,17 +76,20 @@ int main(){
     pthread_t threads[setting.thread_num];
     struct ThreadArgs args[setting.thread_num];
 
-    for(int i=0; i<setting.thread_num; i++){
+    for (int i = 0; i < setting.thread_num; i++) {
         args[i].id = i;
-        if(pthread_create(&threads[i], NULL, function, (void*)&args[i])){
+        args[i].jsonInput = &setting; // 포인터로 설정
+
+        if (pthread_create(&threads[i], NULL, function, (void*)&args[i])) {
             fprintf(stderr, "Error creating thread\n");
             exit(1);
         }
     }
 
-    for(int i=0; i<setting.thread_num; i++){
+    for (int i = 0; i < setting.thread_num; i++) {
         pthread_join(threads[i], NULL);
     }
 
+    json_value_free(rootValue);
     return 0;
 }
