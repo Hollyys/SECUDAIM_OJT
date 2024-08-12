@@ -71,6 +71,7 @@ int main(){
     }
 
     // Threading
+    pthread_t threads[setting.thread_num];
     struct ThreadArgs args[setting.thread_num];
 
     for(int i=0; i<setting.thread_num; i++){
