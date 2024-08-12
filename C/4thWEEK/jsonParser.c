@@ -66,7 +66,7 @@ int main(){
     }
 
     for(int i=0; i<setting.repeat; i++){
-        printf("%d: %s\n", i+1, stringGenerator());
+        printf("%d:\t%s\n", i+1, stringGenerator());
     }
 
     return 0;
