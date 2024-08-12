@@ -22,7 +22,7 @@ char stringGenerator(){
     char *output = calloc(stringLenth+1, sizeof(char));
 
     for(int i=0; i<stringLenth; i++){
-        int key = rand()%26;
+        int key = rand()%52;
         printf("%c ", charSet[key]);
         output[i] = charSet[key];
     }
