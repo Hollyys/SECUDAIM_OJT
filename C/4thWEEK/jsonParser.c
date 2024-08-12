@@ -12,11 +12,6 @@ struct Thread{
     char name[20];
 };
 
-struct ThreadArgs{
-    int id;
-    struct Setting jsonInput;
-};
-
 struct Setting{
     /* data */
     int repeat;
@@ -27,30 +22,25 @@ struct Setting{
 char* stringGenerator(){
     int stringLenth = 10;
     char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    // char *output = calloc(stringLenth+1, sizeof(char));
     char *output = malloc(stringLenth+1);
 
     for(int i=0; i<stringLenth; i++){
         int key = rand()%52;
-        // printf("%c ", charSet[key]);
         output[i] = charSet[key];
     }
     output[stringLenth] = '\0';
-    // printf("\n%s\n", output);
 
     return output;
 }
 
 void* function(void *arg){
-    ThreadArgs *args = (ThreadArgs *)arg;
     for(int i=0; i<args.jsonInput.repeat; i++){
-        printf("%s running time: s\t%s\n", args.jsonInput.thread[args.id].nam, stringGenerator());
+        printf("%s running time: s\n", args.jsonInput.thread[args.id].nam);
     }
 }
 
 int main(){
     struct Setting setting;
-    bool log = false;
     srand((unsigned int)time(NULL));
 
     JSON_Value *rootValue = json_parse_file("jparser.json");
@@ -67,42 +57,11 @@ int main(){
     setting.thread_num = (int)json_object_get_number(rootObject, "thread_num");
     JSON_Array *threadArray = json_object_get_array(rootObject, "thread");
 
-    if(log){
-        printf("\n** JSON PARSING RESULT **\n");
-        printf("Repeat: %d\n", setting.repeat);
-        printf("Thread Num: %d\n", setting.thread_num);
-        printf("Thread:\n");
-    }
-
     for(int i=0; i<setting.thread_num; i++){
         JSON_Object *threadObject = json_array_get_object(threadArray, i);
         const char *thread_name = json_object_get_string(threadObject, "name");
         setting.thread[i].name = thread_name;
-        if(log){
-            printf("    Name: %s\n", setting.thread[i].name);
-        }
-    }
-
-    if(log){
-        printf("*************************\n\n");
-    }
-
-    pthread_t threads[setting.thread_num];
-    ThreadArgs args[setting.thread_num];
-    void *result;
-
-    for (int i = 0; i < setting.repeat; i++) {
-        args[i].id = i;
-        args[i].jsonInput = setting;
-        if (pthread_create(&(threads[i]), NULL, function, &args[i])) {
-            printf("THREAD CREATION FAILED\n");
-            exit(1);
-        }
-    }
-    for (int i = 0; i < setting.repeat; i++) {
-        if (pthread_join(threads[i], &result) != 0) {
-            printf("Join Thread Fail\n");
-        }
+        printf("setting.thread[%d].name: %s\n",i,setting.thread[i].name);
     }
 
     return 0;
