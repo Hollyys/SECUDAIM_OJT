@@ -7,6 +7,7 @@
 #include "parson.h"
 
 #define MAX_THREADS 5
+#define STRINGLENTH 10
 
 struct Thread {
     char name[20];
@@ -24,7 +25,7 @@ struct ThreadArgs {
 };
 
 char* stringGenerator() {
-    int stringLength = 10;
+    int stringLength = STRINGLENTH;
     char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     char *output = malloc(stringLength + 1);
 
@@ -46,9 +47,12 @@ void* function(void *arg) {
 
     for (int i = 0; i < args->jsonInput->repeat; i++){
         /* code */
+        char *generatedString = malloc(STRINGLENTH + 1);
+        strcpy(generatedString, stringGenerator());
+
         sleep(1);
         printf("%s running time: %ds\n", args->jsonInput->thread[args->id].name, i+1);
-        printf("generated string: %s\n", stringGenerator());
+        printf("generated string: %s\n", generatedString());
     }
 
     return NULL;
