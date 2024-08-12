@@ -5,16 +5,23 @@
 #include <time.h>
 #include "parson.h"
 
+#define MAX_THREADS 5
+
 struct Thread{
     /* data */
     char name[20];
 };
 
+struct ThreadArgs{
+    int id;
+    struct Setting jsonInput;
+}
 
 struct Setting{
     /* data */
     int repeat;
     int thread_num;
+    struct Thread thread[MAX_THREADS];
 };
 
 char* stringGenerator(){
@@ -36,8 +43,8 @@ char* stringGenerator(){
 
 void* function(void *arg){
     ThreadArgs *args = (ThreadArgs *)arg;
-    for(int i=0; i<args.repeat; i++){
-        printf("%s running time: s\t%s\n", i+1, args.name, stringGenerator());
+    for(int i=0; i<args.jsonInput.repeat; i++){
+        printf("%s running time: s\t%s\n", args.jsonInput.thread[args.id].nam, stringGenerator());
     }
 }
 
@@ -70,8 +77,9 @@ int main(){
     for(int i=0; i<setting.thread_num; i++){
         JSON_Object *threadObject = json_array_get_object(threadArray, i);
         const char *thread_name = json_object_get_string(threadObject, "name");
+        setting.thread[i].name = thread_name;
         if(log){
-            printf("    Name: %s\n", thread_name);
+            printf("    Name: %s\n", setting.thread[i].name);
         }
     }
 
@@ -80,16 +88,19 @@ int main(){
     }
 
     pthread_t threads[setting.thread_num];
+    ThreadArgs args[setting.thread_num];
     void *result;
 
     for (int i = 0; i < setting.repeat; i++) {
-        if (pthread_create(&(threads[i]), NULL, function, &setting)) {
+        args[i].id = i;
+        args[i].jsonInput = setting;
+        if (pthread_create(&(threads[i]), NULL, function, &args[i])) {
             printf("THREAD CREATION FAILED\n");
             exit(1);
         }
     }
     for (int i = 0; i < setting.repeat; i++) {
-        if (pthread_join(thread[i], &result) != 0) {
+        if (pthread_join(threads[i], &result) != 0) {
             printf("Join Thread Fail\n");
         }
     }
