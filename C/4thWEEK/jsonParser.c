@@ -18,7 +18,7 @@ int main(){
 
     JSON_Value *rootValue;
     JSON_Object *rootObject;
-    JSON_Array *thread_name = json_object_get_array(rootObject, "Thread");
+    JSON_Array *thread_name = json_object_get_array(rootObject, "thread");
 
     rootValue = json_parse_file("jparser.json");
     rootObject = json_value_get_object(rootValue);
