@@ -15,7 +15,7 @@ struct Thread{
 struct ThreadArgs{
     int id;
     struct Setting jsonInput;
-}
+};
 
 struct Setting{
     /* data */
