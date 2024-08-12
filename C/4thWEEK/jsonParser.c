@@ -33,12 +33,6 @@ char* stringGenerator(){
     return output;
 }
 
-void* function(void *arg){
-    for(int i=0; i<arg.jsonInput.repeat; i++){
-        printf("%s running time: s\n", arg.jsonInput.thread[arg.id].nam);
-    }
-}
-
 int main(){
     struct Setting setting;
     srand((unsigned int)time(NULL));
