@@ -49,10 +49,11 @@ void* function(void *arg) {
 
     json_object_set_string(rootObject, "repeat_cnt", args->jsonInput->repeat);
 
+    JSON_Value *repeatArrayValue = json_value_init_array();
+    JSON_Array *repeatArray = json_value_get_array(repeatArrayValue);
+
     for (int i = 0; i < args->jsonInput->repeat; i++){
         /* code */
-        JSON_Value *repeatArrayValue = json_value_init_array();
-        JSON_Array *repeatArray = json_value_get_array(repeatArrayValue);
 
         char *generatedString = malloc(STRINGLENTH + 1);
         strcpy(generatedString, stringGenerator());
