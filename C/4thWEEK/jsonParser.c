@@ -62,7 +62,6 @@ void* function(void *arg) {
 
         sleep(1);
         printf("%s running time: %ds\n", args->jsonInput->thread[args->id].name, i+1);
-        printf("generated string: %s\n", generatedString);
     }
 
     json_object_set_value(rootObject, "repeat", repeatArrayValue);
