@@ -25,11 +25,11 @@ char* stringGenerator(){
     for(int i=0; i<stringLenth; i++){
         // srand((unsigned int)time(NULL));
         int key = rand()%52;
-        printf("%c ", charSet[key]);
+        // printf("%c ", charSet[key]);
         output[i] = charSet[key];
     }
     output[stringLenth] = '\0';
-    printf("\n%s\n", output);
+    // printf("\n%s\n", output);
 
     return output;
 }
