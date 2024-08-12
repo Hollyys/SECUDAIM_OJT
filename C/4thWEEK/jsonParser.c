@@ -23,7 +23,7 @@ struct Setting{
 struct ThreadArgs{
     int id;
     struct Setting jsonInput;
-}
+};
 
 char* stringGenerator(){
     int stringLenth = 10;
