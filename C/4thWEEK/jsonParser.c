@@ -20,6 +20,7 @@ char stringGenerator(){
     int stringLenth = 10;
     char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     char *output = calloc(stringLenth+1, sizeof(char));
+    srand((unsigned int)time(NULL));
 
     for(int i=0; i<stringLenth; i++){
         int key = rand()%52;
