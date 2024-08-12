@@ -41,19 +41,33 @@ char* stringGenerator() {
 void* function(void *arg) {
     struct ThreadArgs *args = (struct ThreadArgs *)arg;
 
-    printf("repeat: %d\n", args->jsonInput->repeat);
-    printf("thread_num: %d\n", args->jsonInput->thread_num);
-    printf("name: %s\n", args->jsonInput->thread[args->id].name);
+    JSON_Value *rootValue;
+    JSON_Object *rootObject;
+
+    rootValue = json_value_init_objrct();
+    rootObject = json_value_get_object(rootValue);
+
+    json_object_set_string(rootObject, "repeat_cnt", args->jsonInput->repeat);
 
     for (int i = 0; i < args->jsonInput->repeat; i++){
         /* code */
+        JSON_Value *repeatArrayValue = json_value_init_array();
+        JSON_Array *repeatArray = json_value_get_array(repeatArrayValue);
+
         char *generatedString = malloc(STRINGLENTH + 1);
         strcpy(generatedString, stringGenerator());
+        json_array_append_string(repeatArray, generatedString);
+        free(generatedString);
 
         sleep(1);
         printf("%s running time: %ds\n", args->jsonInput->thread[args->id].name, i+1);
         printf("generated string: %s\n", generatedString);
     }
+
+    json_object_set_value(rootObject, "repeat", repeatArrayValue);
+    json_serialize_to_file_pretty(rootValue, "output.json");
+
+    json_value_free(rootValue);
 
     return NULL;
 }
@@ -88,7 +102,7 @@ int main() {
 
     for (int i = 0; i < setting.thread_num; i++) {
         args[i].id = i;
-        args[i].jsonInput = &setting; // 포인터로 설정
+        args[i].jsonInput = &setting;
 
         if (pthread_create(&threads[i], NULL, function, (void*)&args[i])) {
             fprintf(stderr, "Error creating thread\n");
