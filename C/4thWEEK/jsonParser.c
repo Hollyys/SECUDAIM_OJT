@@ -17,7 +17,15 @@ int main(){
     struct Setting setting;
 
     JSON_Value *rootValue = json_parse_file("jparser.json");
+    if(rootValue == NULL){
+        fprintf(stderr, "Error parsing JSON file\n");
+        return 1;
+    }
     JSON_Object *rootObject = json_value_get_object(rootValue);
+    if(rootObject == NULL){
+        fprintf(stderr, "Error accessing JSON object\n");
+        return 1;
+    }
     setting.repeat = (int)json_object_get_number(rootObject, "repeat");
     setting.thread_num = (int)json_object_get_number(rootObject, "thread_num");
     JSON_Array *threadArray = json_object_get_array(rootObject, "thread");
