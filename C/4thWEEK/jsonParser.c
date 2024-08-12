@@ -20,6 +20,11 @@ struct Setting{
     struct Thread thread[MAX_THREADS];
 };
 
+struct ThreadArgs{
+    int id;
+    struct Setting jsonInput;
+}
+
 char* stringGenerator(){
     int stringLenth = 10;
     char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -32,6 +37,12 @@ char* stringGenerator(){
     output[stringLenth] = '\0';
 
     return output;
+}
+
+void* function(void *arg){
+    printf("repeat: %d\n", arg.jsonInput.repeat);
+    printf("thread_num: %d\n", arg.jsonInput.thread_num);
+    printf("name: %s\n", arg.jsonInput.thread[arg.id].name);
 }
 
 int main(){
@@ -55,8 +66,22 @@ int main(){
     for(int i=0; i<setting.thread_num; i++){
         JSON_Object *threadObject = json_array_get_object(threadArray, i);
         const char *thread_name = json_object_get_string(threadObject, "name");
+        setting.thread[i].id = i;
         strcpy(setting.thread[i].name, thread_name);
-        printf("setting.thread[%d].name: %s\n",i,setting.thread[i].name);
+    }
+
+    // Threading
+    struct ThreadArgs args[setting.thread_num];
+
+    for(int i=0; i<setting.thread_num; i++){
+        if(pthread_create(&threads[i], NULL, function, (void*)&args[i])){
+            fprintf(stderr, "Error creating thread\n");
+            exit(1);
+        }
+    }
+
+    for(int i=0; i<setting.thread_num; i++){
+        pthread_join(threads[i], NULL);
     }
 
     return 0;
