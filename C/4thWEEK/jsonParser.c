@@ -30,7 +30,7 @@ int main(){
     printf("Repeat: %d\n", setting.repeat);
     printf("Thread Num: %d\n", setting.thread_num);
     printf("Thread:\n");
-    for(int i=0; i<json_array_get_count(thread_name); i++){
+    for(int i=0; i<setting.thread_num; i++){
         printf("    Name: %s\n", json_array_get_string(thread_name, i));
     }
 
