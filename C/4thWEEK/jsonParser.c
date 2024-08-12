@@ -21,9 +21,9 @@ char* stringGenerator(){
     char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     // char *output = calloc(stringLenth+1, sizeof(char));
     char *output = malloc(stringLenth+1);
-    srand((unsigned int)time(NULL));
 
     for(int i=0; i<stringLenth; i++){
+        srand((unsigned int)time(NULL));
         int key = rand()%52;
         printf("%c ", charSet[key]);
         output[i] = charSet[key];
