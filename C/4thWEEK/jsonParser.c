@@ -18,7 +18,7 @@ int main(){
 
     JSON_Value *rootValue;
     JSON_Object *rootObject;
-    JSON_Array *thread_name = json_object_get_array(rootObject, "thread");
+    JSON_Array *thread_array = json_object_get_array(rootObject, "thread");
 
     rootValue = json_parse_file("jparser.json");
     rootObject = json_value_get_object(rootValue);
@@ -31,7 +31,9 @@ int main(){
     printf("Thread Num: %d\n", setting.thread_num);
     printf("Thread:\n");
     for(int i=0; i<setting.thread_num; i++){
-        printf("    Name: %s\n", json_array_get_string(thread_name, i));
+        JSON_Object *thread_object = json_array_get_object(thread_array, i);
+        char *thread_name = json_array_append_string(thread_object, "name");
+        printf("    Name: %s\n", thread_name);
     }
 
     return 0;
