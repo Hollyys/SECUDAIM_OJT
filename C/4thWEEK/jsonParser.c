@@ -41,9 +41,9 @@ void* function(void *arg) {
     // 포인터로 캐스팅
     struct ThreadArgs *args = (struct ThreadArgs *)arg;
 
-    printf("repeat: %d\n", args->jsonInput.repeat);
-    printf("thread_num: %d\n", args->jsonInput.thread_num);
-    printf("name: %s\n", args->jsonInput.thread[args->id].name);
+    printf("repeat: %d\n", args->jsonInput->repeat);
+    printf("thread_num: %d\n", args->jsonInput->thread_num);
+    printf("name: %s\n", args->jsonInput->thread[args->id].name);
 
     return NULL;
 }
