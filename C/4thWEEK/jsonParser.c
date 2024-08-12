@@ -1,19 +1,17 @@
 #include <stdio.h>
 #include "parson.h"
 
-typedef struct 
-{
+typedef struct Thread{
     /* data */
     char name[20];
-}Thread;
+};
 
 
-typedef struct 
-{
+typedef struct Setting{
     /* data */
     int repeat;
     int thread_num;
-}Setting;
+};
 
 int main(){
     struct Setting setting;
