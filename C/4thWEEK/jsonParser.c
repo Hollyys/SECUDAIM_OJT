@@ -17,10 +17,11 @@ struct Setting{
 };
 
 char stringGenerator(){
+    int stringLenth = 10;
     char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    char output[] = "";
+    char *output = calloc(stringLenth, sizeof(char));
 
-    for(int i=0; i<10; i++){
+    for(int i=0; i<stringLenth; i++){
         int key = rand()%26;
         output[i] = charSet[key];
     }
