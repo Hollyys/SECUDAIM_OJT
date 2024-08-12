@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
 #include "parson.h"
 
 struct Thread{
@@ -13,6 +15,18 @@ struct Setting{
     int repeat;
     int thread_num;
 };
+
+char stringGenerator(){
+    char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char output[] = "";
+
+    for(int i=0; i<10; i++){
+        int key = rand()%26;
+        output[i] = charSet[key];
+    }
+
+    return output;
+}
 
 int main(){
     struct Setting setting;
@@ -42,6 +56,10 @@ int main(){
             const char *thread_name = json_object_get_string(threadObject, "name");
             printf("    Name: %s\n", thread_name);
         }
+    }
+
+    for(int i=0; i<setting.repeat; i++){
+        printf("%d: %s\n", i+1, stringGenerator());
     }
 
     return 0;
