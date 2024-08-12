@@ -62,6 +62,7 @@ int main(){
             const char *thread_name = json_object_get_string(threadObject, "name");
             printf("    Name: %s\n", thread_name);
         }
+        printf("**************************\n");
     }
 
     for(int i=0; i<setting.repeat; i++){
