@@ -34,8 +34,8 @@ char* stringGenerator(){
 }
 
 void* function(void *arg){
-    for(int i=0; i<args.jsonInput.repeat; i++){
-        printf("%s running time: s\n", args.jsonInput.thread[args.id].nam);
+    for(int i=0; i<arg.jsonInput.repeat; i++){
+        printf("%s running time: s\n", arg.jsonInput.thread[arg.id].nam);
     }
 }
 
@@ -60,7 +60,7 @@ int main(){
     for(int i=0; i<setting.thread_num; i++){
         JSON_Object *threadObject = json_array_get_object(threadArray, i);
         const char *thread_name = json_object_get_string(threadObject, "name");
-        setting.thread[i].name = thread_name;
+        strcpy(setting.thread[i].name, thread_name);
         printf("setting.thread[%d].name: %s\n",i,setting.thread[i].name);
     }
 
