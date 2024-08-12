@@ -36,8 +36,8 @@ char* stringGenerator(){
 
 void* function(void *arg){
     ThreadArgs *args = (ThreadArgs *)arg;
-    for(int i=0; i<args->repeat; i++){
-        printf("%s running time: s\t%s\n", i+1, args->name, stringGenerator());
+    for(int i=0; i<args.repeat; i++){
+        printf("%s running time: s\t%s\n", i+1, args.name, stringGenerator());
     }
 }
 
@@ -80,14 +80,17 @@ int main(){
     }
 
     pthread_t threads[setting.thread_num];
-    ThreadArgs args[setting.thread_num];
+    void *result;
 
-    for (int i = 0; i < THREAD_COUNT; i++) {
-        args[i].repeat = setting.repeat;
-        args[i].name = setting.name;
-        if (pthread_create(&(threads[i]), NULL, function, &args[i])) {
+    for (int i = 0; i < setting.repeat; i++) {
+        if (pthread_create(&(threads[i]), NULL, function, &setting)) {
             printf("THREAD CREATION FAILED\n");
             exit(1);
+        }
+    }
+    for (int i = 0; i < setting.repeat; i++) {
+        if (pthread_join(thread[i], &result) != 0) {
+            printf("Join Thread Fail\n");
         }
     }
 
