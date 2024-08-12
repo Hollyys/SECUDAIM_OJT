@@ -44,8 +44,7 @@ void* function(void *arg) {
     printf("thread_num: %d\n", args->jsonInput->thread_num);
     printf("name: %s\n", args->jsonInput->thread[args->id].name);
 
-    for ((int) i = 0; i < args->jsonInput->repeat; i++)
-    {
+    for (int i = 0; i < args->jsonInput->repeat; i++){
         /* code */
         sleep(1);
         printf("%s running time: %ds\n", args->jsonInput->thread[args->id].name, i+1);
