@@ -16,7 +16,7 @@ struct Setting{
     int thread_num;
 };
 
-char stringGenerator(){
+char* stringGenerator(){
     int stringLenth = 10;
     char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     // char *output = calloc(stringLenth+1, sizeof(char));
