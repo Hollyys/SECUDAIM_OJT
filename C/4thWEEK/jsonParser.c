@@ -43,7 +43,14 @@ void* function(void *arg) {
     printf("repeat: %d\n", args->jsonInput->repeat);
     printf("thread_num: %d\n", args->jsonInput->thread_num);
     printf("name: %s\n", args->jsonInput->thread[args->id].name);
-    printf("generated string: %s", stringGenerator());
+
+    for ((int) i = 0; i < args->jsonInput->repeat; i++)
+    {
+        /* code */
+        sleep(1);
+        printf("%s running time: %ds\n", args->jsonInput->thread[args->id].name, i+1);
+        printf("generated string: %s\n", stringGenerator());
+    }
 
     return NULL;
 }
