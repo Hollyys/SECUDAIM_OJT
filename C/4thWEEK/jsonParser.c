@@ -40,9 +40,9 @@ char* stringGenerator(){
 }
 
 void* function(void *arg){
-    printf("repeat: %d\n", arg->jsonInput.repeat);
-    printf("thread_num: %d\n", arg->jsonInput.thread_num);
-    printf("name: %s\n", arg->jsonInput.thread[arg.id].name);
+    printf("repeat: %d\n", arg.jsonInput.repeat);
+    printf("thread_num: %d\n", arg.jsonInput.thread_num);
+    printf("name: %s\n", arg.jsonInput.thread[arg.id].name);
 }
 
 int main(){
@@ -74,7 +74,7 @@ int main(){
     struct ThreadArgs args[setting.thread_num];
 
     for(int i=0; i<setting.thread_num; i++){
-        args[i]->id = i;
+        args[i].id = i;
         if(pthread_create(&threads[i], NULL, function, (void*)&args[i])){
             fprintf(stderr, "Error creating thread\n");
             exit(1);
