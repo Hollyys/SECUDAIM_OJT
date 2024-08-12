@@ -40,6 +40,9 @@ char* stringGenerator(){
 }
 
 void* function(void *arg){
+    // Casting to Pointer
+    struct ThreadArgs *args = (struct ThreadArgs *)arg;
+
     printf("repeat: %d\n", arg.jsonInput.repeat);
     printf("thread_num: %d\n", arg.jsonInput.thread_num);
     printf("name: %s\n", arg.jsonInput.thread[arg.id].name);
