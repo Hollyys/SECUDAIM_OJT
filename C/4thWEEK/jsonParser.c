@@ -19,7 +19,7 @@ int main(){
     JSON_Value *rootValue;
     JSON_Object *rootObject;
 
-    rootValue = json_parse_file("example.json");
+    rootValue = json_parse_file("jparser.json");
     rootObject = json_value_get_object(rootValue);
 
     setting.repeat = (int)json_object_get_number(rootObject, "repeat");
