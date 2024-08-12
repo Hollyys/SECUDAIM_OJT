@@ -18,8 +18,8 @@ typedef struct Setting
 int main(){
     struct Setting setting;
 
-    Json_Value *rootValue;
-    Json_Object *rootObject;
+    JSON_Value *rootValue;
+    JSON_Object *rootObject;
 
     rootValue = json_parse_file("example.json");
     rootObject = json_value_get_object(rootValue);
@@ -30,6 +30,6 @@ int main(){
     printf("\n** JSON PARSING RESULT **\n");
     printf("Repeat: %d\n", setting.repeat);
     printf("Thread Num: %d\n", setting.thread_num);
-    
+
     return 0;
 }
