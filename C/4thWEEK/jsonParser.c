@@ -19,12 +19,15 @@ struct Setting{
 char stringGenerator(){
     int stringLenth = 10;
     char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    char *output = calloc(stringLenth, sizeof(char));
+    char *output = calloc(stringLenth+1, sizeof(char));
 
     for(int i=0; i<stringLenth; i++){
         int key = rand()%26;
+        printf("%c ", charSet[key]);
         output[i] = charSet[key];
     }
+    printf("\n");
+    output[stringLenth] = '\0';
 
     return output;
 }
