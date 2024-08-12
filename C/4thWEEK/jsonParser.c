@@ -34,6 +34,13 @@ char* stringGenerator(){
     return output;
 }
 
+void* function(void *arg){
+    ThreadArgs *args = (ThreadArgs *)arg;
+    for(int i=0; i<args->repeat; i++){
+        printf("%s running time: s\t%s\n", i+1, args->name, stringGenerator());
+    }
+}
+
 int main(){
     struct Setting setting;
     bool log = false;
@@ -72,8 +79,16 @@ int main(){
         printf("*************************\n\n");
     }
 
-    for(int i=0; i<setting.repeat; i++){
-        printf("%d:\t%s\n", i+1, stringGenerator());
+    pthread_t threads[setting.thread_num];
+    ThreadArgs args[setting.thread_num];
+
+    for (int i = 0; i < THREAD_COUNT; i++) {
+        args[i].repeat = setting.repeat;
+        args[i].name = setting.name;
+        if (pthread_create(&(threads[i]), NULL, function, &args[i])) {
+            printf("THREAD CREATION FAILED\n");
+            exit(1);
+        }
     }
 
     return 0;
