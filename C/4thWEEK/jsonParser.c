@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include "parson.h"
 
-typedef struct Thread{
+struct Thread{
     /* data */
     char name[20];
 };
 
 
-typedef struct Setting{
+struct Setting{
     /* data */
     int repeat;
     int thread_num;
