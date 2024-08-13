@@ -102,11 +102,11 @@ void remove_key(char *hash_key)
 	printf("\n> ");
 	if (flag == 1)
 	{
-		printf("[ %d ] is deleted.\n", hash_key);
+		printf("[ %s ] is deleted.\n", hash_key);
 	}
 	else
 	{
-		printf("[ %d ] is not exsist.\n", hash_key);
+		printf("[ %s ] is not exsist.\n", hash_key);
 	}
 }
 
