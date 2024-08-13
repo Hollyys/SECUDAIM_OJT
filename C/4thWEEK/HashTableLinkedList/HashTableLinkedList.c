@@ -142,7 +142,7 @@ void display()
 	for (int i = 0; i < BUCKET_SIZE; i++)
 	{
 		iterator = hashtable[i].head;
-		printf("Bucket[%d] : , ", i);
+		printf("Bucket[%d] : ", i);
 		while (iterator != NULL)
 		{
 			printf("(key : %s, data: %s) -> ", iterator->hash_key, iterator->data);
@@ -158,9 +158,6 @@ int main()
 	hashtable = (struct bucket *)malloc(BUCKET_SIZE * sizeof(struct bucket));
 	memset(hashtable, 0, BUCKET_SIZE * sizeof(struct bucket));
 
-	printf("\nHASH TABLE Bucket memory check\n");
-	display();
-
 	FILE *file = fopen("hash.csv", "r"); // CSV 파일 열기
 	if (!file)
 	{
@@ -173,6 +170,7 @@ int main()
 	{
 		char *hash_key = strtok(buffer, ",");
 		char *data = strtok(buffer, ",");
+		printf("key: %s, data: %s added.\n", hash_key, data);
 		add(hash_key, data);
 	}
 
