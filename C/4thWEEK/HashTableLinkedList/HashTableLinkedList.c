@@ -25,8 +25,8 @@ struct node *createNode(char *hash_key, char *data)
 
 	newNode = (struct node *)malloc(sizeof(struct node));
 
-	newNode->hash_key = hash_key;
-	newNode->data = data;
+	newNode->hash_key = strdup(hash_key);
+	newNode->data = strdup(data);
 	newNode->next = NULL;
 
 	return newNode;
