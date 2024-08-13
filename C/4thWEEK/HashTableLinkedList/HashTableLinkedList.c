@@ -2,147 +2,173 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct bucket* hashtable = NULL;
+struct bucket *hashtable = NULL;
+#define BUFFER_SIZE 1024
 int BUCKET_SIZE = 31;
 
-struct node{
-		int key;
-		int value;
-		struct node* next;
+struct node
+{
+	char *hash_key;
+	char *data;
+	struct node *next;
 };
 
-struct bucket{
-		struct node* head;
-		int count;
+struct bucket
+{
+	struct node *head;
+	int count;
 };
 
-struct node* createNode(int key, int value){
-		struct node* newNode;
+struct node *createNode(char *hash_key, char *data)
+{
+	struct node *newNode;
 
-		newNode = (struct node*)malloc(sizeof(struct node));
+	newNode = (struct node *)malloc(sizeof(struct node));
 
-		newNode->key = key;
-		newNode->value = value;
-		newNode->next = NULL;
+	newNode->hash_key = hash_key;
+	newNode->data = data;
+	newNode->next = NULL;
 
-		return newNode;
+	return newNode;
 }
 
-int hashfunction(int key){
-		return key%BUCKET_SIZE;
+int hashfunction(char *hash_key)
+{
+	return key % BUCKET_SIZE;
 }
 
-void add(int key, int value){
-		int hashindex = hashfunction(key);
+void add(char *hash_key, char *data)
+{
+	int hashindex = hashfunction(hash_key);
 
-		struct node* newNode = createNode(key, value);
+	struct node *newNode = createNode(hash_key, data);
 
-		if(hashtable[hashindex].count == 0){
-				hashtable[hashindex].count = 1;
-				hashtable[hashindex].head = newNode;
-		}
-		else{
-				newNode->next = hashtable[hashindex].head;
-				hashtable[hashindex].head = newNode;
-				hashtable[hashindex].count++;
-		}
+	if (hashtable[hashindex].count == 0)
+	{
+		hashtable[hashindex].count = 1;
+		hashtable[hashindex].head = newNode;
+	}
+	else
+	{
+		newNode->next = hashtable[hashindex].head;
+		hashtable[hashindex].head = newNode;
+		hashtable[hashindex].count++;
+	}
 }
 
-void remove_key(int key){
-		int hashindex = hashfunction(key);
-		int flag = 0;
+void remove_key(char *hash_key)
+{
+	int hashindex = hashfunction(hash_key);
+	int flag = 0;
 
-		struct node* node;
-		struct node* before;
+	struct node *node;
+	struct node *before;
 
-		node = hashtable[hashindex].head;
+	node = hashtable[hashindex].head;
 
-		while(node != NULL){
-				if(node->key == key){
-						if(node == hashtable[hashindex].head){
-								hashtable[hashindex].head = node->next;
-						}
-						else{
-								before->next = node->next;
-						}
-						hashtable[hashindex].count--;
-						free(node);
-						flag = 1;
-				}
-				before = node;
-				node = node->next;
-		}
-		printf("\n> ");
-		if(flag == 1){
-				printf("[ %d ] is deleted.\n", key);
-		}
-		else{
-				printf("[ %d ] is not exsist.\n", key);
-		}
-}
-
-void search(int key){
-		int hashindex = hashfunction(key);
-		struct node* node = hashtable[hashindex].head;
-		int flag = 0;
-		while(node != NULL)
+	while (node != NULL)
+	{
+		if (strcmp(node->hash_key, hash_key) == 0)
 		{
-				if(node->key ==  key){
-						flag = 1;
-						break;
-				}
-				node = node->next;
+			if (node == hashtable[hashindex].head)
+			{
+				hashtable[hashindex].head = node->next;
+			}
+			else
+			{
+				before->next = node->next;
+			}
+			hashtable[hashindex].count--;
+			free(node);
+			flag = 1;
 		}
-		printf("\n> ");
-		if(flag == 1){
-				printf("KEY: [ %d ], VALUE: [ %d ]\n", node->key, node->value);
-		}
-		else{
-				printf("No such KEY exsist.\n");
-		}
+		before = node;
+		node = node->next;
+	}
+	printf("\n> ");
+	if (flag == 1)
+	{
+		printf("[ %d ] is deleted.\n", hash_key);
+	}
+	else
+	{
+		printf("[ %d ] is not exsist.\n", hash_key);
+	}
 }
 
-void display(){
-		struct node* iterator;
-		printf("\n======= DISPLAY =========\n\n");
-		for(int i = 0; i < BUCKET_SIZE; i++){
-				iterator = hashtable[i].head;
-				printf("Bucket[%d] : (Count: %d), ", i, hashtable[i].count);
-				while(iterator != NULL)
-				{
-						printf("(key : %d, val: %d) -> ", iterator->key, iterator->value);
-						iterator = iterator->next;
-				}
-				printf("\n");
-		}
-		printf("\n=========================\n");
-}
-
-int main(){
-		hashtable = (struct bucket*)malloc(BUCKET_SIZE*sizeof(struct bucket));
-		memset(hashtable, 0, BUCKET_SIZE*sizeof(struct bucket));
-		
-		printf("\nHASH TABLE Bucket memory check\n");
-
-		display();
-
-		for(int i=0; i<17; i++)
+void search(char *hash_key)
+{
+	int hashindex = hashfunction(hash_key);
+	struct node *node = hashtable[hashindex].head;
+	int flag = 0;
+	while (node != NULL)
+	{
+		if (strcmp(node->hash_key, hash_key) == 0)
 		{
-				add(i, 10*i);
+			flag = 1;
+			break;
 		}
+		node = node->next;
+	}
+	printf("\n> ");
+	if (flag == 1)
+	{
+		printf("KEY: [ %d ], VALUE: [ %d ]\n", node->hash_key, node->value);
+	}
+	else
+	{
+		printf("No such KEY exsist.\n");
+	}
+}
 
-		remove_key(14);
-		remove_key(7);
-		remove_key(30);
+void display()
+{
+	struct node *iterator;
+	printf("\n======= DISPLAY =========\n\n");
+	for (int i = 0; i < BUCKET_SIZE; i++)
+	{
+		iterator = hashtable[i].head;
+		printf("Bucket[%d] : (Count: %d), ", i, hashtable[i].count);
+		while (iterator != NULL)
+		{
+			printf("(key : %d, val: %d) -> ", iterator->key, iterator->data);
+			iterator = iterator->next;
+		}
+		printf("\n");
+	}
+	printf("\n=========================\n");
+}
 
-		add(32, 320);
-		add(62, 620);
+int main()
+{
+	hashtable = (struct bucket *)malloc(BUCKET_SIZE * sizeof(struct bucket));
+	memset(hashtable, 0, BUCKET_SIZE * sizeof(struct bucket));
 
-		search(5);
+	printf("\nHASH TABLE Bucket memory check\n");
+	display();
 
-		display();
+	FILE *file = fopen("hash.csv", "r"); // CSV 파일 열기
+	if (!file)
+	{
+		fprintf(stderr, "Could not open file\n");
+		return 1;
+	}
 
-		free(hashtable);
+	char buffer[BUFFER_SIZE];
+	while (fgets(buffer, BUFFER_SIZE, file))
+	{
+		char *hash_key = strtok(buffer, ",");
+		char *data = strtok(buffer, ",");
+	}
 
-		return 0;
+	fclose(file); // 파일 닫기
+
+	for (int i = 0; i < 17; i++)
+	{
+		add(i, 10 * i);
+	}
+
+	free(hashtable);
+
+	return 0;
 }
