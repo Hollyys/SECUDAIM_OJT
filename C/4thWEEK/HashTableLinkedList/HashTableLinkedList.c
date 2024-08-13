@@ -165,6 +165,8 @@ int main()
 		return 1;
 	}
 
+	//display();
+
 	char buffer[BUFFER_SIZE];
 	while (fgets(buffer, BUFFER_SIZE, file))
 	{
@@ -172,6 +174,7 @@ int main()
 		char *data = strtok(NULL, ",");
 		printf("key: %s, data: %s", hash_key, data);
 		add(hash_key, data);
+		//display();
 	}
 
 	fclose(file);
