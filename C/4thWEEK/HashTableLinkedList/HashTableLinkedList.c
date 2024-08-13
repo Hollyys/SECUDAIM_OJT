@@ -127,7 +127,7 @@ void search(char *hash_key)
 	printf("\n> ");
 	if (flag == 1)
 	{
-		printf("KEY: [ %d ], VALUE: [ %d ]\n", node->hash_key, node->data);
+		printf("KEY: [ %s ], VALUE: [ %s ]\n", node->hash_key, node->data);
 	}
 	else
 	{
