@@ -32,9 +32,23 @@ struct node *createNode(char *hash_key, char *data)
 	return newNode;
 }
 
+int sumAsciiValues(const char *str)
+{
+	int sum = 0;
+	while (*str)
+	{
+		if ((*str >= 'A' && *str <= 'Z') || (*str >= 'a' && *str <= 'z'))
+		{
+			sum += (int)(*str);
+		}
+		str++;
+	}
+	return sum;
+}
+
 int hashfunction(char *hash_key)
 {
-	return key % BUCKET_SIZE;
+	return sumAsciiValues(hash_key) % BUCKET_SIZE;
 }
 
 void add(char *hash_key, char *data)
@@ -159,16 +173,13 @@ int main()
 	{
 		char *hash_key = strtok(buffer, ",");
 		char *data = strtok(buffer, ",");
+		add(hash_key, data);
 	}
 
-	fclose(file); // 파일 닫기
-
-	for (int i = 0; i < 17; i++)
-	{
-		add(i, 10 * i);
-	}
-
+	fclose(file);
 	free(hashtable);
+
+	display();
 
 	return 0;
 }
