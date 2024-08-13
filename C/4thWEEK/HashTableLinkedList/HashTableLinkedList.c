@@ -142,10 +142,10 @@ void display()
 	for (int i = 0; i < BUCKET_SIZE; i++)
 	{
 		iterator = hashtable[i].head;
-		printf("Bucket[%d] : (Count: %d), ", i, hashtable[i].count);
+		printf("Bucket[%d] : , ", i);
 		while (iterator != NULL)
 		{
-			printf("(key : %s, val: %s) -> ", iterator->hash_key, iterator->data);
+			printf("(key : %s, data: %s) -> ", iterator->hash_key, iterator->data);
 			iterator = iterator->next;
 		}
 		printf("\n");
