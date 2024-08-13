@@ -3,7 +3,7 @@
 #include <string.h>
 
 struct bucket* hashtable = NULL;
-int BUCKET_SIZE = 10;
+int BUCKET_SIZE = 31;
 
 struct node{
 		int key;
