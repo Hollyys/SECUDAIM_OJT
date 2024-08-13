@@ -7,7 +7,7 @@ int sumAsciiValues(const char *str)
     while (*str)
     {
         // if (isalpha(*str))
-        if ('a' <= str <= 'z' || 'A' <= str <= 'Z')
+        if ((*str >= 'A' && *str <= 'Z') || (*str >= 'a' && *str <= 'z'))
         {
             sum += (int)(*str);
         }
