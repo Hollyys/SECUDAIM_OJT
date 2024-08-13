@@ -28,7 +28,7 @@ int main() {
             }
         }
         printf("Key: %s\n", hash_key);
-        printf("Data: %s\n", data);
+        printf("Data: %s", data);
         printf(" -> %d\n\n", cnt);
     }
 
