@@ -127,7 +127,7 @@ void search(char *hash_key)
 	printf("\n> ");
 	if (flag == 1)
 	{
-		printf("KEY: [ %d ], VALUE: [ %d ]\n", node->hash_key, node->value);
+		printf("KEY: [ %d ], VALUE: [ %d ]\n", node->hash_key, node->data);
 	}
 	else
 	{
@@ -145,7 +145,7 @@ void display()
 		printf("Bucket[%d] : (Count: %d), ", i, hashtable[i].count);
 		while (iterator != NULL)
 		{
-			printf("(key : %d, val: %d) -> ", iterator->key, iterator->data);
+			printf("(key : %s, val: %s) -> ", iterator->hash_key, iterator->data);
 			iterator = iterator->next;
 		}
 		printf("\n");
