@@ -170,7 +170,7 @@ int main()
 	{
 		char *hash_key = strtok(buffer, ",");
 		char *data = strtok(NULL, ",");
-		printf("key: %s, data: %s added.\n", hash_key, data);
+		printf("key: %s, data: %s", hash_key, data);
 		add(hash_key, data);
 	}
 
