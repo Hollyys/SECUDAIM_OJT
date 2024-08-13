@@ -27,9 +27,9 @@ int main() {
                 strcpy(data, token);
             }
         }
-        printf("Key: %s\n", hash_key);
+        printf("\nKey: %s\n", hash_key);
         printf("Data: %s", data);
-        printf(" -> %d\n\n", cnt);
+        printf(" -> %d\n", cnt);
     }
 
     fclose(file); // 파일 닫기
