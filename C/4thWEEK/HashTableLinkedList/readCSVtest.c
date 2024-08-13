@@ -13,12 +13,19 @@ int main() {
 
     char buffer[BUFFER_SIZE]; // 버퍼 선언
     while (fgets(buffer, BUFFER_SIZE, file)) { // 파일에서 줄을 읽기
+        int cnt = 0;
         char *token = strtok(buffer, ","); // 첫 번째 토큰 가져오기
+        if(token){
+            cnt++;
+        }
         while (token) {
             printf("%s ", token); // 토큰 출력
             token = strtok(NULL, ","); // 다음 토큰 가져오기
+            if(token){
+                cnt++;
+            }
         }
-        printf("\n");
+        printf(" -> %d Tokens\n", cnt);
     }
 
     fclose(file); // 파일 닫기
