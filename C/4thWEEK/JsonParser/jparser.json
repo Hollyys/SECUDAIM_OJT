@@ -1,12 +1,36 @@
 {
     "repeat": 10,
-    "thread_num": 2,
+    "thread_num": 10,
     "thread": [
         {
             "name": "sub_thread1"
         },
         {
             "name": "sub_thread2"
+        },
+        {
+            "name": "sub_thread3"
+        },
+        {
+            "name": "sub_thread4"
+        },
+        {
+            "name": "sub_thread5"
+        },
+        {
+            "name": "sub_thread6"
+        },
+        {
+            "name": "sub_thread7"
+        },
+        {
+            "name": "sub_thread8"
+        },
+        {
+            "name": "sub_thread9"
+        },
+        {
+            "name": "sub_thread10"
         }
     ]
 }
