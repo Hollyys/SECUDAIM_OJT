@@ -61,14 +61,13 @@ void *function(void *arg)
     for (int i = 0; i < args->jsonInput->repeat; i++)
     {
         /* code */
-
         char *generatedString = malloc(STRINGLENTH + 1);
         strcpy(generatedString, stringGenerator());
         json_array_append_string(repeatArray, generatedString);
         free(generatedString);
 
         sleep(1);
-        printf("%s running time: %ds\n", args->jsonInput->thread[args->id].name, i + 1);
+        printf("%s\trunning time: %ds\n", args->jsonInput->thread[args->id].name, i + 1);
     }
 
     json_object_set_value(rootObject, "repeat", repeatArrayValue);
