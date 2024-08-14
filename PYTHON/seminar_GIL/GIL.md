@@ -60,7 +60,7 @@
 
 1. **ERR: Missing required CPU features**
 
-   ![Untitled 1](https://github.com/user-attachments/assets/131342f5-4832-4d63-be4b-58f67d32f28c)
+   ![Untitled](https://github.com/user-attachments/assets/f425b02c-51a0-40bd-a75a-d617d6d04273)
     
     ```bash
     pip install polars-lts-cpu
@@ -76,7 +76,8 @@
 4. `ModuleNotFoundError: pa.Table requires 'pyarrow' module to be installed`
 5. 퍼포먼스 체크
     
-    ![Untitled](%E2%93%9F%E2%93%A8%E2%93%A3%E2%93%97%E2%93%9E%E2%93%9D%2061a237b23fae43cab76f127edf4ede1a/Untitled%201.png)
+    ![Untitled 1](https://github.com/user-attachments/assets/37cdf826-04dd-4704-b68c-6a9beab1d52e)
+
     
     Polars 진짜 빠르다
     
