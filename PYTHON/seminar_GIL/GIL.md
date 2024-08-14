@@ -59,28 +59,28 @@
 ## 240730 [Polars]
 
 1. **ERR: Missing required CPU features**
-    
-    ![Untitled](%E2%93%9F%E2%93%A8%E2%93%A3%E2%93%97%E2%93%9E%E2%93%9D%2061a237b23fae43cab76f127edf4ede1a/Untitled.png)
+
+   ![Untitled 1](https://github.com/user-attachments/assets/131342f5-4832-4d63-be4b-58f67d32f28c)
     
     ```bash
     pip install polars-lts-cpu
     ```
     
-2. `ComputeError: could not parse `NA` as dtype `i64` at column 'MasVnrArea' (column number 27)`
+3. `ComputeError: could not parse `NA` as dtype `i64` at column 'MasVnrArea' (column number 27)`
     
     ```python
     pl_df = pl.read_csv('train.csv', null_values='NA')
     # NA라는 문자열을 결측치로 처리
     ```
     
-3. `ModuleNotFoundError: pa.Table requires 'pyarrow' module to be installed`
-4. 퍼포먼스 체크
+4. `ModuleNotFoundError: pa.Table requires 'pyarrow' module to be installed`
+5. 퍼포먼스 체크
     
     ![Untitled](%E2%93%9F%E2%93%A8%E2%93%A3%E2%93%97%E2%93%9E%E2%93%9D%2061a237b23fae43cab76f127edf4ede1a/Untitled%201.png)
     
     Polars 진짜 빠르다
     
-5. Polars로 읽은 CSV파일을 PyGWalker로 시각화 하기
+6. Polars로 읽은 CSV파일을 PyGWalker로 시각화 하기
     
     ```python
     pl_walker = pyg.walk( pl_df.to_pandas())
