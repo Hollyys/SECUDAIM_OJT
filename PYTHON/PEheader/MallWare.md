@@ -370,7 +370,8 @@
         
 - Accuracy benchmark
     
-    ![Untitled](%E2%93%9F%E2%93%A8%E2%93%A3%E2%93%97%E2%93%9E%E2%93%9D%2061a237b23fae43cab76f127edf4ede1a/Untitled%202.png)
+    ![Untitled 2](https://github.com/user-attachments/assets/1f1aa5f4-dae3-4a93-ae44-03d27c40d33f)
+
     
 - Issue
     
@@ -491,7 +492,8 @@
     
 - Accuracy benchmark
     
-    ![Untitled](%E2%93%9F%E2%93%A8%E2%93%A3%E2%93%97%E2%93%9E%E2%93%9D%2061a237b23fae43cab76f127edf4ede1a/Untitled%203.png)
+    ![Untitled 3](https://github.com/user-attachments/assets/8042b22c-6e5f-4001-9bf6-7f983c2c3483)
+
     
 - 테스트한 실행파일 소스 (ThisIsNotMallware.c)
     
@@ -505,6 +507,7 @@
     
 - 테스트 결과
     
-    ![Untitled](%E2%93%9F%E2%93%A8%E2%93%A3%E2%93%97%E2%93%9E%E2%93%9D%2061a237b23fae43cab76f127edf4ede1a/Untitled%204.png)
+    ![Untitled 4](https://github.com/user-attachments/assets/d28da9d0-a5ee-4a6e-8df8-20625ea289e8)
+
     
     메모리 및 시스템 접근이 전혀 없는 소스임에도 불구하고 malware로 판단하였으며 이는 기본 및 GridSearchCV 추가된 버전의  Gradient Boost모델과 Random Forest모델 모두에서 같은 결과를 보여주었다.
