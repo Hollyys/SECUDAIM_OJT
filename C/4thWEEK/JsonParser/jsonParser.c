@@ -6,30 +6,35 @@
 #include <time.h>
 #include "parson.h"
 
-#define MAX_THREADS 5
+#define MAX_THREADS 10
 #define STRINGLENTH 10
 
-struct Thread {
+struct Thread
+{
     char name[20];
 };
 
-struct Setting {
+struct Setting
+{
     int repeat;
     int thread_num;
     struct Thread thread[MAX_THREADS];
 };
 
-struct ThreadArgs {
+struct ThreadArgs
+{
     int id;
     struct Setting *jsonInput; // 포인터로 수정
 };
 
-char* stringGenerator() {
+char *stringGenerator()
+{
     int stringLength = STRINGLENTH;
     char charSet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     char *output = malloc(stringLength + 1);
 
-    for (int i = 0; i < stringLength; i++) {
+    for (int i = 0; i < stringLength; i++)
+    {
         int key = rand() % 52;
         output[i] = charSet[key];
     }
@@ -38,7 +43,8 @@ char* stringGenerator() {
     return output;
 }
 
-void* function(void *arg) {
+void *function(void *arg)
+{
     struct ThreadArgs *args = (struct ThreadArgs *)arg;
 
     JSON_Value *rootValue;
@@ -52,7 +58,8 @@ void* function(void *arg) {
     JSON_Value *repeatArrayValue = json_value_init_array();
     JSON_Array *repeatArray = json_value_get_array(repeatArrayValue);
 
-    for (int i = 0; i < args->jsonInput->repeat; i++){
+    for (int i = 0; i < args->jsonInput->repeat; i++)
+    {
         /* code */
 
         char *generatedString = malloc(STRINGLENTH + 1);
@@ -61,7 +68,7 @@ void* function(void *arg) {
         free(generatedString);
 
         sleep(1);
-        printf("%s running time: %ds\n", args->jsonInput->thread[args->id].name, i+1);
+        printf("%s running time: %ds\n", args->jsonInput->thread[args->id].name, i + 1);
     }
 
     json_object_set_value(rootObject, "repeat", repeatArrayValue);
@@ -72,17 +79,20 @@ void* function(void *arg) {
     return NULL;
 }
 
-int main() {
+int main()
+{
     struct Setting setting;
     srand((unsigned int)time(NULL));
 
     JSON_Value *rootValue = json_parse_file("jparser.json");
-    if (rootValue == NULL) {
+    if (rootValue == NULL)
+    {
         fprintf(stderr, "Error parsing JSON file\n");
         return 1;
     }
     JSON_Object *rootObject = json_value_get_object(rootValue);
-    if (rootObject == NULL) {
+    if (rootObject == NULL)
+    {
         fprintf(stderr, "Error accessing JSON object\n");
         return 1;
     }
@@ -90,7 +100,8 @@ int main() {
     setting.thread_num = (int)json_object_get_number(rootObject, "thread_num");
     JSON_Array *threadArray = json_object_get_array(rootObject, "thread");
 
-    for (int i = 0; i < setting.thread_num; i++) {
+    for (int i = 0; i < setting.thread_num; i++)
+    {
         JSON_Object *threadObject = json_array_get_object(threadArray, i);
         const char *thread_name = json_object_get_string(threadObject, "name");
         strcpy(setting.thread[i].name, thread_name);
@@ -100,17 +111,20 @@ int main() {
     pthread_t threads[setting.thread_num];
     struct ThreadArgs args[setting.thread_num];
 
-    for (int i = 0; i < setting.thread_num; i++) {
+    for (int i = 0; i < setting.thread_num; i++)
+    {
         args[i].id = i;
         args[i].jsonInput = &setting;
 
-        if (pthread_create(&threads[i], NULL, function, (void*)&args[i])) {
+        if (pthread_create(&threads[i], NULL, function, (void *)&args[i]))
+        {
             fprintf(stderr, "Error creating thread\n");
             exit(1);
         }
     }
 
-    for (int i = 0; i < setting.thread_num; i++) {
+    for (int i = 0; i < setting.thread_num; i++)
+    {
         pthread_join(threads[i], NULL);
     }
 
