@@ -1,7 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "HashTableLinkedList.h"
+
+struct bucket *hashtable = NULL;
+#define BUFFER_SIZE 1024
+int BUCKET_SIZE = 31;
+
+struct node
+{
+	char *hash_key;
+	char *data;
+	struct node *next;
+};
+
+struct bucket
+{
+	struct node *head;
+	int count;
+};
+
+struct node *createNode(char *hash_key, char *data)
+{
+	struct node *newNode;
+
+	newNode = (struct node *)malloc(sizeof(struct node));
+
+	newNode->hash_key = strdup(hash_key);
+	newNode->data = strdup(data);
+	newNode->next = NULL;
+
+	return newNode;
+}
 
 int sumAsciiValues(const char *str)
 {
@@ -124,15 +153,35 @@ void display()
 	printf("\n=========================\n");
 }
 
-struct node *createNode(char *hash_key, char *data)
+int main()
 {
-	struct node *newNode;
+	hashtable = (struct bucket *)malloc(BUCKET_SIZE * sizeof(struct bucket));
+	memset(hashtable, 0, BUCKET_SIZE * sizeof(struct bucket));
 
-	newNode = (struct node *)malloc(sizeof(struct node));
+	FILE *file = fopen("hash.csv", "r");
+	if (!file)
+	{
+		fprintf(stderr, "Could not open file\n");
+		return 1;
+	}
 
-	newNode->hash_key = strdup(hash_key);
-	newNode->data = strdup(data);
-	newNode->next = NULL;
+	//display();
 
-	return newNode;
+	char buffer[BUFFER_SIZE];
+	while (fgets(buffer, BUFFER_SIZE, file))
+	{
+		char *hash_key = strtok(buffer, ",");
+		char *data = strtok(NULL, ",");
+		printf("key: %s, data: %s", hash_key, data);
+		add(hash_key, data);
+		//display();
+	}
+
+	fclose(file);
+	free(hashtable);
+
+	display();
+
+	return 0;
 }
+
