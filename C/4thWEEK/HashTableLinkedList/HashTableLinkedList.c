@@ -3,6 +3,17 @@
 #include <string.h>
 #include "HashTableLinkedList.h"
 
+struct bucket *hashtable = NULL;
+
+struct node *createNode(char *hash_key, char *data)
+{
+	struct node *newNode = (struct node *)malloc(sizeof(struct node));
+	newNode->hash_key = strdup(hash_key);
+	newNode->data = strdup(data);
+	newNode->next = NULL;
+	return newNode;
+}
+
 int sumAsciiValues(const char *str)
 {
 	int sum = 0;
@@ -25,7 +36,6 @@ int hashfunction(char *hash_key)
 void add(char *hash_key, char *data)
 {
 	int hashindex = hashfunction(hash_key);
-
 	struct node *newNode = createNode(hash_key, data);
 
 	if (hashtable[hashindex].count == 0)
@@ -45,11 +55,8 @@ void remove_key(char *hash_key)
 {
 	int hashindex = hashfunction(hash_key);
 	int flag = 0;
-
-	struct node *node;
-	struct node *before;
-
-	node = hashtable[hashindex].head;
+	struct node *node = hashtable[hashindex].head;
+	struct node *before = NULL;
 
 	while (node != NULL)
 	{
@@ -66,6 +73,7 @@ void remove_key(char *hash_key)
 			hashtable[hashindex].count--;
 			free(node);
 			flag = 1;
+			break;
 		}
 		before = node;
 		node = node->next;
@@ -77,7 +85,7 @@ void remove_key(char *hash_key)
 	}
 	else
 	{
-		printf("[ %s ] is not exsist.\n", hash_key);
+		printf("[ %s ] does not exist.\n", hash_key);
 	}
 }
 
@@ -102,7 +110,7 @@ void search(char *hash_key)
 	}
 	else
 	{
-		printf("No such KEY exsist.\n");
+		printf("No such KEY exists.\n");
 	}
 }
 
@@ -122,17 +130,4 @@ void display()
 		printf("\n");
 	}
 	printf("\n=========================\n");
-}
-
-struct node *createNode(char *hash_key, char *data)
-{
-	struct node *newNode;
-
-	newNode = (struct node *)malloc(sizeof(struct node));
-
-	newNode->hash_key = strdup(hash_key);
-	newNode->data = strdup(data);
-	newNode->next = NULL;
-
-	return newNode;
 }
