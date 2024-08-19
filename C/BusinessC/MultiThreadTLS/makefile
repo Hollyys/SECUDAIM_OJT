@@ -1,28 +1,20 @@
-#  Compiler
 CC = gcc
-# Compile Options
 CFLAGS = -Wall -g
+LIBS = -lpthread
 
-# Target file name (executable file name)
-TARGET = HashTableLinkedList
+TARGET = multiThreadTls
 
-# Source file (*.c)
-SRCS = main.c HashTableLinkedList.c
-# Object file (*.o)
+SRCS = main.c threads.c parson.c HashTableLinkedList.c
 OBJS = $(SRCS:.c=.o)
 
-# Default Target
 all: $(TARGET)
 
-# Rule for generate executable files
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAG) -o $(TARGET) $(OBJS)
+	$(CC) $(CFLAG) -o $(TARGET) $(OBJS) $(LIBS)
 
-# Rule for generate Object files
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Cleaning Rule
+
 clean:
 	rm -f $(TARGET) $(OBJS)
-
