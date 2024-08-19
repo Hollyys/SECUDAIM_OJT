@@ -8,11 +8,14 @@
 #include <time.h>
 #include <signal.h>
 
+JSON_Value *globalRootValue = NULL;
+JSON_Object *globalRootObject = NULL;
+
 void signal_handler(int sig)
 {
     printf("\nSIGINT received. Saving JSON and exiting in 3 seconds...\n");
 
-    json_serialize_to_file_pretty(rootValue, "output.json");
+    json_serialize_to_file_pretty(globalRootValue, "output.json");
 
     sleep(1);
     printf("3..\n");
@@ -22,6 +25,8 @@ void signal_handler(int sig)
 
     sleep(1);
     printf("1..\n");
+
+	json_value_free(globalRootValue);
 
     exit(0);
 }
@@ -48,14 +53,19 @@ void *function(void *arg)
 
     signal(SIGINT, signal_handler);
 
-    JSON_Value *rootValue = json_value_init_object();
-    JSON_Object *rootObject = json_value_get_object(rootValue);
+    // JSON_Value *rootValue = json_value_init_object();
+    // JSON_Object *rootObject = json_value_get_object(rootValue);
 
-    json_object_set_number(rootObject, "repeat_cnt", args->jsonInput->repeat);
+	globalRootValue = json_value_init_object();
+	globalRootObject = json_value_get_object(globalRootValue);
 
-    JSON_Value *repeatArrayValue = json_value_init_array();
-    JSON_Array *repeatArray = json_value_get_array(repeatArrayValue);
+    // json_object_set_number(rootObject, "repeat_cnt", args->jsonInput->repeat);
+	json_object_set_number(globalRootObject, "repeat_cnt", args->jsonInput->repeat);
 
+    // JSON_Value *repeatArrayValue = json_value_init_array();
+    // JSON_Array *repeatArray = json_value_get_array(repeatArrayValue);
+	JSON_Value *repeatArrayValue = json_value_init_array();
+	JSON_Array *repeatArray = json_value_get_array(repeatArrayValue);
     for (int i = 0; i < args->jsonInput->repeat; i++)
     {
         char *generatedString = stringGenerator();
@@ -66,9 +76,10 @@ void *function(void *arg)
         printf("%s\trunning time: %ds\n", args->jsonInput->thread[args->id].name, i + 1);
     }
 
-    json_object_set_value(rootObject, "repeat", repeatArrayValue);
+    // json_object_set_value(rootObject, "repeat", repeatArrayValue);
+	json_object_set_value(globalRootObject, "repeat", repeatArrayValue);
 
-    json_value_free(rootValue);
+    // json_value_free(rootValue);
 
     return NULL;
 }
