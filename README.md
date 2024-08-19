@@ -9,6 +9,8 @@
 CC = gcc
 # Compile Options
 CFLAGS = -Wall -g
+# External Library
+LIBS = 
 
 # Target file name (executable file name)
 TARGET =
