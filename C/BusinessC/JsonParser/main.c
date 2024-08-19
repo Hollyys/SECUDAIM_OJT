@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int main() {
     struct Setting setting;
@@ -25,7 +26,12 @@ int main() {
 
     for (int i = 0; i < setting.thread_num; i++) {
         pthread_join(threads[i], NULL);
-    }
+	}
+
+	while(1){
+		printf("Waiting for SIGINT..\n");
+		sleep(2);
+	}
 
     return 0;
 }
