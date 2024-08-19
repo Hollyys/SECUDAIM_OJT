@@ -12,7 +12,6 @@ struct Thread {
 };
 
 struct Setting {
-    int repeat;
     int thread_num;
     struct Thread thread[MAX_THREADS];
 };
