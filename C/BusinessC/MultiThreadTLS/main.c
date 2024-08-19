@@ -1,36 +1,38 @@
-#include <stdio.h>
+// main.c
+#include "threads.h"
+#include <pthread.h>
 #include <stdlib.h>
-#include <string.h>
-#include "HashTableLinkedList.h"
+#include <stdio.h>
+#include <unistd.h>
 
-int main()
-{
-	hashtable = (struct bucket *)malloc(BUCKET_SIZE * sizeof(struct bucket));
-	memset(hashtable, 0, BUCKET_SIZE * sizeof(struct bucket));
+int main() {
+    struct Setting setting;
+    srand((unsigned int)time(NULL));
 
-	FILE *file = fopen("hash.csv", "r");
-	if (!file)
-	{
-		fprintf(stderr, "Could not open file\n");
-		return 1;
+    load_settings(&setting, "jparser.json");
+
+    pthread_t threads[setting.thread_num];
+    struct ThreadArgs args[setting.thread_num];
+
+    for (int i = 0; i < setting.thread_num; i++) {
+        args[i].id = i;
+        args[i].jsonInput = &setting;
+
+        if (pthread_create(&threads[i], NULL, function, (void *)&args[i])) {
+            fprintf(stderr, "Error creating thread\n");
+            exit(1);
+        }
+    }
+
+    for (int i = 0; i < setting.thread_num; i++) {
+        pthread_join(threads[i], NULL);
 	}
 
-	// display();
-
-	char buffer[BUFFER_SIZE];
-	while (fgets(buffer, BUFFER_SIZE, file))
-	{
-		char *hash_key = strtok(buffer, ",");
-		char *data = strtok(NULL, ",");
-		printf("key: %s, data: %s", hash_key, data);
-		add(hash_key, data);
-		// display();
+	while(1){
+		printf("Waiting for SIGINT..\n");
+		sleep(2);
 	}
 
-	fclose(file);
-	free(hashtable);
-
-	display();
-
-	return 0;
+    return 0;
 }
+ 
