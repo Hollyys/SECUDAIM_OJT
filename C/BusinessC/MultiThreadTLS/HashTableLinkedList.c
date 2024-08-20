@@ -134,12 +134,12 @@ void display()
 	printf("=========================\n\n");
 }
 
-void initialize_table()
+void initialize_table(char *thread_name)
 {
 	hashtable = (struct bucket *)malloc(BUCKET_SIZE * sizeof(struct bucket));
     memset(hashtable, 0, BUCKET_SIZE * sizeof(struct bucket));
 
-    printf("INT..\n");
+    printf("%s INT..\n", thread_name);
     sleep(1);
 }
 
