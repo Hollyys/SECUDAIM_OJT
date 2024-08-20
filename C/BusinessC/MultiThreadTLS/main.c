@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 int main() {
+
 	setup_signal_handler();
 	create_join_thread();
 
