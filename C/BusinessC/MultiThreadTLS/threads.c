@@ -26,7 +26,7 @@ void *function(void *arg)
 	sigset_t *set = (sigset_t *)arg;
 	int sig;
 
-	initialize_table();
+	initialize_table(args->jsonInput->thread[args->id].name);
 
     FILE *file = fopen("hash.csv", "r");
     if (!file)
@@ -46,7 +46,7 @@ void *function(void *arg)
 
         add(hash_key, data);
     }
-	printf("DONE!\n");
+	printf("%s DONE!\n", args->jsonInput->thread[args->id].name);
 	sleep(1);
 
 	while(!sigint_received)
