@@ -9,9 +9,11 @@
 #include <time.h>
 #include <signal.h>
 
+volatile sig_atomic_t sigint_received = 0;
+
 void signal_handler(int sig)
 {
-    printf("\nSIGINT received. Saving JSON and exiting in 3 seconds...\n");
+    printf("\nSIGINT received. Status will be printed in 3 seconds...\n");
 
     sleep(1);
     printf("3..\n");
@@ -22,22 +24,17 @@ void signal_handler(int sig)
     sleep(1);
     printf("1..\n");
 
-	display();
-	sleep(1);
-
-    exit(0);
+	sigint_received = 1;
 }
 
 void *function(void *arg)
 {
-    struct ThreadArgs *args = (struct ThreadArgs *)arg;
-	hashtable = (struct bucket *)malloc(BUCKET_SIZE * sizeof(struct bucket));
-	memset(hashtable, 0, BUCKET_SIZE * sizeof(struct bucket));
+	struct ThreadArgs *args = (struct ThreadArgs *)arg;
+	
+	sigset_t *set = (sigset_t *)arg;
+	int sig;
 
-	printf("INT..\n");
-
-    signal(SIGINT, signal_handler);
-
+	initialize_table();
 
     FILE *file = fopen("hash.csv", "r");
     if (!file)
@@ -47,7 +44,7 @@ void *function(void *arg)
     }
 
 	printf("%s RUNNING...\n", args->jsonInput->thread[args->id].name);
-	
+
 	char buffer[BUFFER_SIZE];
     while (fgets(buffer, BUFFER_SIZE, file))
     {
@@ -56,17 +53,19 @@ void *function(void *arg)
 
         add(hash_key, data);
     }
-	sleep(1);
 	printf("DONE!\n");
 
-	while(1)
+	while(!sigint_received)
 	{
 		printf("SLEEP...\n");
 		sleep(1);
 	}
 
+	printf("\n%s thread HashTable:\n", args->jsonInput->thread[args->id].name);
+	display();
+
 	fclose(file);
-    free(hashtable);
+    free_table();
 
     return NULL;
 }
@@ -97,4 +96,37 @@ void load_settings(struct Setting *setting, const char *filename)
     }
 
     json_value_free(rootValue);
+}
+
+void create_join_thread()
+{
+	struct Setting setting;
+
+	load_settings(&setting, "jparser.json");
+
+	pthread_t threads[setting.thread_num];
+	struct ThreadArgs args[setting.thread_num];
+
+	for (int i = 0; i < setting.thread_num; i++) {
+		args[i].id = i;
+    	args[i].jsonInput = &setting;
+
+    	if (pthread_create(&threads[i], NULL, function, (void *)&args[i])) {
+    		fprintf(stderr, "Error creating thread\n");
+        	exit(1);
+    	}
+	}
+
+    for (int i = 0; i < setting.thread_num; i++) {
+        pthread_join(threads[i], NULL);
+    }
+}
+
+void setup_signal_handler()
+{
+    struct sigaction sa;
+    sa.sa_handler = signal_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sigaction(SIGINT, &sa, NULL);
 }

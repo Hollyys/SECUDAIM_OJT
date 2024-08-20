@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
+#include <unistd.h>
 #include "HashTableLinkedList.h"
 
-struct bucket *hashtable = NULL;
+__thread struct bucket *hashtable = NULL;
 
 struct node *createNode(char *hash_key, char *data)
 {
@@ -117,7 +119,7 @@ void search(char *hash_key)
 void display()
 {
 	struct node *iterator;
-	printf("\n======= DISPLAY =========\n\n");
+	printf("======= DISPLAY =========\n\n");
 	for (int i = 0; i < BUCKET_SIZE; i++)
 	{
 		iterator = hashtable[i].head;
@@ -129,5 +131,32 @@ void display()
 		}
 		printf("\n");
 	}
-	printf("\n=========================\n");
+	printf("=========================\n\n");
+}
+
+void initialize_table()
+{
+	hashtable = (struct bucket *)malloc(BUCKET_SIZE * sizeof(struct bucket));
+    memset(hashtable, 0, BUCKET_SIZE * sizeof(struct bucket));
+
+    printf("INT..\n");
+    sleep(1);
+}
+
+void free_table()
+{
+    struct node *iterator;
+    for (int i = 0; i < BUCKET_SIZE; i++)
+    {   
+        iterator = hashtable[i].head; 
+        while (iterator != NULL)
+        {   
+			struct node *tmp = iterator;
+			iterator = iterator->next;
+            free(tmp->hash_key);
+			free(tmp->data);
+			free(tmp);
+        }   
+    }
+	free(hashtable);
 }
