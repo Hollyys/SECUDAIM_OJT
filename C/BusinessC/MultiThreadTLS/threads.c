@@ -35,9 +35,6 @@ void *function(void *arg)
 {
 	struct ThreadArgs *args = (struct ThreadArgs *)arg;
 
-	sigset_t *set = (sigset_t *)arg;
-	int sig;
-
 	initialize_table(args->jsonInput->thread[args->id].name);
 
     FILE *file = fopen("hash.csv", "r");
@@ -70,6 +67,7 @@ void *function(void *arg)
 	pthread_mutex_lock(&print_mutex);
 	printf("\n%s thread HashTable:\n", args->jsonInput->thread[args->id].name);
 	display();
+	sleep(1);
 	pthread_mutex_unlock(&print_mutex);
 
 	fclose(file);
