@@ -123,13 +123,13 @@ void display()
 	for (int i = 0; i < BUCKET_SIZE; i++)
 	{
 		iterator = hashtable[i].head;
-		printf("Bucket[%d] : ", i);
+		printf("Bucket[%d]: ", i);
 		while (iterator != NULL)
 		{
-			printf("(key : %s, data: %s) -> ", iterator->hash_key, iterator->data);
+			printf("(key: %s, data: %s) -> ", iterator->hash_key, iterator->data);
 			iterator = iterator->next;
 		}
-		printf("\n");
+		printf("NULL\n");
 	}
 	printf("=========================\n\n");
 }
