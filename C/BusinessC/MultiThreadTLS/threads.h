@@ -21,10 +21,11 @@ struct ThreadArgs {
     struct Setting *jsonInput;
 };
 
-// 함수 선언
 char* stringGenerator();
 void* function(void *arg);
 void load_settings(struct Setting *setting, const char *filename);
+void create_join_thread();
+void setup_signal_handler();
 
 #endif // THREADS_H
 
