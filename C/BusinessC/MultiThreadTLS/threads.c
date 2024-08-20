@@ -10,19 +10,11 @@
 #include <signal.h>
 
 volatile sig_atomic_t sigint_received = 0;
+pthread_mutex_t print_mutex;
 
 void signal_handler(int sig)
 {
     printf("\nSIGINT received. Status will be printed in 3 seconds...\n");
-
-    sleep(1);
-    printf("3..\n");
-
-    sleep(1);
-    printf("2..\n");
-
-    sleep(1);
-    printf("1..\n");
 
 	sigint_received = 1;
 }
@@ -30,7 +22,7 @@ void signal_handler(int sig)
 void *function(void *arg)
 {
 	struct ThreadArgs *args = (struct ThreadArgs *)arg;
-	
+
 	sigset_t *set = (sigset_t *)arg;
 	int sig;
 
@@ -44,6 +36,7 @@ void *function(void *arg)
     }
 
 	printf("%s RUNNING...\n", args->jsonInput->thread[args->id].name);
+	sleep(1);
 
 	char buffer[BUFFER_SIZE];
     while (fgets(buffer, BUFFER_SIZE, file))
@@ -54,15 +47,18 @@ void *function(void *arg)
         add(hash_key, data);
     }
 	printf("DONE!\n");
+	sleep(1);
 
 	while(!sigint_received)
 	{
 		printf("SLEEP...\n");
-		sleep(1);
+		sleep(2);
 	}
-
+	
+	pthread_mutex_lock(&print_mutex);
 	printf("\n%s thread HashTable:\n", args->jsonInput->thread[args->id].name);
 	display();
+	pthread_mutex_unlock(&print_mutex);
 
 	fclose(file);
     free_table();
@@ -103,7 +99,8 @@ void create_join_thread()
 	struct Setting setting;
 
 	load_settings(&setting, "jparser.json");
-
+	
+	pthread_mutex_init(&print_mutex, NULL);
 	pthread_t threads[setting.thread_num];
 	struct ThreadArgs args[setting.thread_num];
 
@@ -120,6 +117,7 @@ void create_join_thread()
     for (int i = 0; i < setting.thread_num; i++) {
         pthread_join(threads[i], NULL);
     }
+	pthread_mutex_destroy(&print_mutex);
 }
 
 void setup_signal_handler()
