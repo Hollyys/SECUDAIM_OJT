@@ -9,9 +9,6 @@
 #include <time.h>
 #include <signal.h>
 
-JSON_Value *globalRootValue = NULL;
-JSON_Object *globalRootObject = NULL;
-
 void signal_handler(int sig)
 {
     printf("\nSIGINT received. Saving JSON and exiting in 3 seconds...\n");
