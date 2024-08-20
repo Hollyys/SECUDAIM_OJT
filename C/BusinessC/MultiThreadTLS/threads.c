@@ -15,8 +15,20 @@ pthread_mutex_t print_mutex;
 void signal_handler(int sig)
 {
     printf("\nSIGINT received. Status will be printed in 3 seconds...\n");
-
 	sigint_received = 1;
+
+	pthread_mutex_lock(&print_mutex);
+
+	printf("3...\n");
+	sleep(1);
+
+	printf("2...\n");
+	sleep(1);
+
+	printf("1...\n");
+	sleep(1);
+
+	pthread_mutex_unlock(&print_mutex);
 }
 
 void *function(void *arg)
