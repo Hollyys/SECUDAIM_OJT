@@ -21,7 +21,7 @@ struct ThreadArgs {
     struct Setting *jsonInput;
 };
 
-char* stringGenerator();
+void signal_handler(int sig);
 void* function(void *arg);
 void load_settings(struct Setting *setting, const char *filename);
 void create_join_thread();
