@@ -5,6 +5,7 @@
 #include "queue.h"
 #include "parson.h"
 
+#define THREAD_NUM 1
 // typedef struct {
 // 	char *data;
 //    QueueType *Q;
