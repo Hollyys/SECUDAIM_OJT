@@ -24,7 +24,7 @@ all: $(TARGET)
 
 # Rule for generate executable files
 $(TARGET): $(OBJS)
-    $(CC) $(CFLAG) -o $(TARGET) $(OBJS)
+    $(CC) $(CFLAG) -o $(TARGET) $(OBJS) $(LIBS)
 
 # Rule for generate Object files
 %.o: %.c
