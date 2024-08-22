@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "queue.h"
 
 void init(QueueType *Q)
@@ -31,6 +28,7 @@ void enqueue(QueueType *Q, element e)
 		Q->rear++;
 		Q->data[Q->rear] = strdup(e);
 		printf("%s Enqueued.: %s\n", e, Q->data[Q->rear]);
+		printf("\n");
 	}
 	pthread_mutex_unlock(&(Q->lock));
 }
