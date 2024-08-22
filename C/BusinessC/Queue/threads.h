@@ -3,13 +3,12 @@
 #define THREADS_H
 
 #include "queue.h"
+#include "parson.h"
 
-#define THREAD_NUM 1
-
-struct ThreadArgs {
-    char *data;
-    QueueType *Q;
-};
+// typedef struct {
+// 	char *data;
+//    QueueType *Q;
+// }ThreadArgs;
 
 void* enqueue_function(void *arg);
 
