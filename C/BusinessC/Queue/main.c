@@ -20,16 +20,12 @@ int main()
 
 	JSON_Object *root_object = json_value_get_object(root_value);
 	JSON_Array *strings_array = json_object_get_array(root_object, "strings");
-	int THREAD_NUM = (int)json_object_get_number(root_object, "count");
+	int THREAD_NUM = 2;
 
 	pthread_t threads[THREAD_NUM];
-	//ThreadArgs args[THREAD_NUM];
 
 	for (int i = 0; i < THREAD_NUM; i++)
 	{
-		//args[i].Q = &Q;
-		//args->data = (char*)json_array_get_string(strings_array, i);
-		//args->data = "911 GT3 RS";
 
 		if (pthread_create(&threads[i], NULL, enqueue_function, (void *)strings_array)) {
     		fprintf(stderr, "Error creating thread\n");
