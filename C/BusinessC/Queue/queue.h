@@ -2,6 +2,8 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#include <stdio.h>
+#include <string.h>
 #include <pthread.h>
 #include "threads.h"
 
