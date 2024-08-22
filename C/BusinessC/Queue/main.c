@@ -9,7 +9,6 @@ QueueType Q;
 
 int main()
 {
-	QueueType Q;
 	init(&Q);
 
 	JSON_Value *root_value = json_parse_file("input.json");
@@ -20,7 +19,6 @@ int main()
 
 	JSON_Object *root_object = json_value_get_object(root_value);
 	JSON_Array *strings_array = json_object_get_array(root_object, "strings");
-	int THREAD_NUM = 2;
 
 	pthread_t threads[THREAD_NUM];
 

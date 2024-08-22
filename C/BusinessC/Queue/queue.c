@@ -27,8 +27,6 @@ void enqueue(QueueType *Q, element e)
 	{
 		Q->rear++;
 		Q->data[Q->rear] = strdup(e);
-		printf("%s Enqueued.: %s\n", e, Q->data[Q->rear]);
-		printf("\n");
 	}
 	pthread_mutex_unlock(&(Q->lock));
 }
@@ -36,25 +34,28 @@ void enqueue(QueueType *Q, element e)
 element dequeue(QueueType *Q)
 {
 	pthread_mutex_lock(&(Q->lock));
+	element string = NULL;
 	if(is_empty(Q))
 	{
 		printf("Empty\n");
-		return 0;
 	}
 	else
 	{
 		Q->front++;
-		return Q->data[Q->front];
+		string = Q->data[Q->front];
 	}
 	pthread_mutex_unlock(&(Q->lock));
+
+	return string;
 }
 
 void display(QueueType *Q)
 {
-	printf("Front Pos: %d\nRear Pos: %d\n", Q->front, Q->rear);
+	printf("\n**** Queue ****\n");
+	printf("\nFront Pos: %d\nRear Pos: %d\n", Q->front, Q->rear);
 	for(int i = Q->front+1; i <= Q->rear; i++)
 	{
 		printf("[%s] ", Q->data[i]);
 	}
-	printf("\n");
+	printf("\n\n**************\n");
 }
