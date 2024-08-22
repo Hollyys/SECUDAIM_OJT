@@ -22,6 +22,7 @@ int main()
 
 	pthread_t threads[THREAD_NUM];
 
+	// ENQUEUE TREAD
 	for (int i = 0; i < THREAD_NUM; i++)
 	{
 
@@ -35,8 +36,21 @@ int main()
         pthread_join(threads[i], NULL);
     }
 
-
 	display(&Q);
+
+	// DEQUEUE THREAD
+	for (int i = 0; i < THREAD_NUM; i++)
+	{
+		if (pthread_create(&threads[i], NULL, dequeue_function, NULL)) {
+			fprintf(stderr, "Error creating thread\n");
+			exit(1);
+		}
+	}
+	for (int i = 0; i < THREAD_NUM; i++)
+	{
+		pthread_join(threads[i], NULL);
+	}
+
 	json_value_free(root_value);
 
 

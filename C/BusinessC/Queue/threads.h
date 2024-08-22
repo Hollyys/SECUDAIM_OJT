@@ -12,5 +12,6 @@
 // }ThreadArgs;
 
 void* enqueue_function(void *arg);
+void* dequeue_function(void *arg);
 
 #endif // THREADS_H

@@ -14,3 +14,15 @@ void* enqueue_function(void *arg){
 		
 		return NULL;
 }
+
+void* dequeue_function(void *arg){
+	printf("\n** Dequeued List **\n");
+	while(!is_empty(&Q)){
+		char *output = dequeue(&Q);
+		printf(" - %s\n", output);
+		free(output);
+	}
+	printf("\n******************\n");
+
+	return NULL;
+}
