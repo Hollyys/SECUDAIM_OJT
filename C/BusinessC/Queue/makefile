@@ -8,7 +8,7 @@ LIBS = -lpthread
 # Target file name (executable file name)
 TARGET = queue
 # Source file (*.c)
-SRCS = main.c queue.c threads.c
+SRCS = main.c queue.c threads.c parson.c
 # Object file (*.o)
 OBJS = $(SRCS:.c=.o)
 

@@ -5,7 +5,8 @@
 
 void init(QueueType *Q)
 {
-  Q->rear = Q->front = -1;
+  	Q->rear = Q->front = -1;
+	pthread_mutex_init(&(Q->lock), NULL);
 }
 
 int is_empty(QueueType *Q)
@@ -20,6 +21,7 @@ int is_full(QueueType *Q)
 
 void enqueue(QueueType *Q, element e)
 {
+	pthread_mutex_lock(&(Q->lock));
 	if(is_full(Q))
 	{
 		printf("Overflow\n");
@@ -28,11 +30,14 @@ void enqueue(QueueType *Q, element e)
 	{
 		Q->rear++;
 		Q->data[Q->rear] = strdup(e);
+		printf("%s Enqueued.: %s\n", e, Q->data[Q->rear]);
 	}
+	pthread_mutex_unlock(&(Q->lock));
 }
 
 element dequeue(QueueType *Q)
 {
+	pthread_mutex_lock(&(Q->lock));
 	if(is_empty(Q))
 	{
 		printf("Empty\n");
@@ -43,6 +48,7 @@ element dequeue(QueueType *Q)
 		Q->front++;
 		return Q->data[Q->front];
 	}
+	pthread_mutex_unlock(&(Q->lock));
 }
 
 void display(QueueType *Q)
