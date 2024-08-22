@@ -115,4 +115,5 @@ $RECYCLE.BIN/
 .vscode
 
 # Notebook
-.ipynb_checkpoints/
+.ipynb_checkpoints
+*/.ipynb_checkpoints
