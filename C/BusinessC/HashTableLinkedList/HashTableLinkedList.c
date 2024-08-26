@@ -11,6 +11,7 @@ struct node *createNode(char *hash_key, char *data)
 	newNode->hash_key = strdup(hash_key);
 	newNode->data = strdup(data);
 	newNode->next = NULL;
+
 	return newNode;
 }
 
@@ -49,6 +50,11 @@ void add(char *hash_key, char *data)
 		hashtable[hashindex].head = newNode;
 		hashtable[hashindex].count++;
 	}
+
+	free(newNode->hash_key);
+	free(newNode->data);
+	free(newNode->next);
+	free(newNode);
 }
 
 void remove_key(char *hash_key)
