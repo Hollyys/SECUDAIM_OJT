@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -g
 LIBS = -lpthread
 
-TARGET = parser
+TARGET = run
 
 SRCS = main.c threads.c parson.c
 OBJS = $(SRCS:.c=.o)

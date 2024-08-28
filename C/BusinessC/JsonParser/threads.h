@@ -27,6 +27,7 @@ struct ThreadArgs {
 char* stringGenerator();
 void* function(void *arg);
 void load_settings(struct Setting *setting, const char *filename);
+void run();
 
 #endif // THREADS_H
 
