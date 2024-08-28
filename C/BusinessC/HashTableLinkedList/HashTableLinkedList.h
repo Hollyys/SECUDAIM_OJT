@@ -26,5 +26,7 @@ void add(char *hash_key, char *data);
 void remove_key(char *hash_key);
 void search(char *hash_key);
 void display();
+void init_table();
+void free_table();
 
 #endif

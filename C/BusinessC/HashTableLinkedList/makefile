@@ -4,10 +4,10 @@ CC = gcc
 CFLAGS = -Wall -g
 
 # Target file name (executable file name)
-TARGET = HashTableLinkedList
+TARGET = run
 
 # Source file (*.c)
-SRCS = main.c HashTableLinkedList.c
+SRCS = main.c HashTableLinkedList.c csvParse.c
 # Object file (*.o)
 OBJS = $(SRCS:.c=.o)
 

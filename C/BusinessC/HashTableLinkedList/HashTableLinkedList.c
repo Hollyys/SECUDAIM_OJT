@@ -50,25 +50,6 @@ void add(char *hash_key, char *data)
 		hashtable[hashindex].head = newNode;
 		hashtable[hashindex].count++;
 	}
-
-	printf("========= DEBUG FREE NODE !!! =========\n");
-
-	if (newNode->hash_key) {
-			free(newNode->hash_key);
-			newNode->hash_key = NULL;
-	}
-	if (newNode->data) {
-			free(newNode->data);
-			newNode->data = NULL;
-	}
-	if (newNode) {
-			free(newNode);
-			newNode = NULL;
-	}
-	//free(newNode->next);
-	//printf("DEBUG FREE : %p\n", newNode->next);
-	//free(newNode);
-	printf("DEBUG FREE : %p\n", newNode);
 }
 
 void remove_key(char *hash_key)
@@ -150,4 +131,42 @@ void display()
 		printf("\n");
 	}
 	printf("\n=========================\n");
-}	
+}
+
+void init_table()
+{
+		hashtable = (struct bucket*)malloc(BUCKET_SIZE * sizeof(struct bucket));
+		memset(hashtable, 0, BUCKET_SIZE * sizeof(struct bucket));
+}
+
+void free_table()
+{
+	struct node*iterator;
+	for(int i=0; i<BUCKET_SIZE; i++)
+	{
+		iterator = hashtable[i].head;
+		while(iterator != NULL)
+		{
+
+			struct node *tmp = iterator;
+			iterator = iterator->next;
+
+			if(tmp->hash_key)
+			{	
+					free(tmp->hash_key);
+					tmp->hash_key = NULL;
+			}
+			if(tmp->data)
+			{
+					free(tmp->data);
+					tmp->data = NULL;
+			}
+			if(tmp)
+			{
+					free(tmp);
+					tmp = NULL;
+			}
+		}
+	}
+	free(hashtable);
+}
