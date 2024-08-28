@@ -9,6 +9,7 @@
 
 struct Thread {
     char name[20];
+	int sigint;
 };
 
 struct Setting {

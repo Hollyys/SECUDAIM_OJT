@@ -6,7 +6,6 @@
 
 int main() {
 
-	//setup_signal_handler();
 	signal(SIGINT, signal_handler);
 	create_join_thread();
 

@@ -51,10 +51,24 @@ void add(char *hash_key, char *data)
 		hashtable[hashindex].count++;
 	}
 
-	free(newNode->hash_key);
-	free(newNode->data);
-	free(newNode->next);
-	free(newNode);
+	printf("========= DEBUG FREE NODE !!! =========\n");
+
+	if (newNode->hash_key) {
+			free(newNode->hash_key);
+			newNode->hash_key = NULL;
+	}
+	if (newNode->data) {
+			free(newNode->data);
+			newNode->data = NULL;
+	}
+	if (newNode) {
+			free(newNode);
+			newNode = NULL;
+	}
+	//free(newNode->next);
+	//printf("DEBUG FREE : %p\n", newNode->next);
+	//free(newNode);
+	printf("DEBUG FREE : %p\n", newNode);
 }
 
 void remove_key(char *hash_key)
@@ -136,4 +150,4 @@ void display()
 		printf("\n");
 	}
 	printf("\n=========================\n");
-}
+}	
