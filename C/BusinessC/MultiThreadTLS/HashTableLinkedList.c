@@ -153,9 +153,23 @@ void free_table()
         {   
 			struct node *tmp = iterator;
 			iterator = iterator->next;
-            free(tmp->hash_key);
-			free(tmp->data);
-			free(tmp);
+
+			if(tmp->hash_key)
+			{
+
+            	free(tmp->hash_key);
+				tmp->hash_key = NULL;
+			}
+			if(tmp->data)
+			{
+				free(tmp->data);
+				tmp->data = NULL;
+			}
+			if(tmp)
+			{
+				free(tmp);
+				tmp = NULL;
+			}
         }   
     }
 	free(hashtable);

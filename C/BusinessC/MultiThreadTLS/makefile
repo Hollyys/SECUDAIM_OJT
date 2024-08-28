@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -g
 LIBS = -lpthread
 
-TARGET = multiThreadTls
+TARGET = run
 
 SRCS = main.c threads.c parson.c HashTableLinkedList.c
 OBJS = $(SRCS:.c=.o)
