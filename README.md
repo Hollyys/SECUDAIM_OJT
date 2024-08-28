@@ -13,7 +13,7 @@ CFLAGS = -Wall -g
 LIBS = 
 
 # Target file name (executable file name)
-TARGET =
+TARGET = run
 # Source file (*.c)
 SRCS =
 # Object file (*.o)
