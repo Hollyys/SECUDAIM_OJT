@@ -38,6 +38,47 @@ clean:
 rebuild: clean all
 
 ```
+
+### 자주 사용하는 vim 명령어
+
+#### 복붙
+
+- 블럭 씌우기 : [ v ]
+    - 라인 단위로 블럭 씌우기 : [ shift + v ]
+- 복사: [ y ]
+- 잘라내기: [ d ]
+- 붙여넣기: [ p ]
+
+#### 창 분할
+
+- 수평 분할 : [ new ] or [ sp ]
+- 수직 분할 : [ vs ]
+- 분할된 화면에서 커서 위치 바꾸기: [ ww ]
+
+#### 이동
+
+- 줄의 처음 위치로 커서 이동 : [ - ]
+- 맨 위로 커서 이동 : [ gg ]
+- 맨 아래로 커서 이동: [ shift + g ]
+- 현재 페이지 맨 위로 커서 이동: [ shift + h ]
+- 현재 페이지 맨 아래로 커서 이동: [ shift + l ]
+- 원하는 줄 번호로 커서 이동: [ :줄번호 ]
+- ‘{’로 이동
+    - forward : [ ]] ]
+    - backward : [ [[ ]
+- ‘}’로 이동
+    - forward : [ ][ ]
+    - backward : [ [] ]
+
+#### 기타
+
+- Undo : [u]
+- Redo : [ ctrl + r ]
+- 들여쓰기 : [ >> }
+    - 한 문단 전체 들여쓰기 : [ >} ]
+    - 여러 라인 들여쓰기 : [ v ] 를 통해 블럭을 지정한 다음 [ > ]
+ 
+
 <br/><br/>
 <br/><br/>
 [<img align="left" alt="Hollyys | velog" width="48px" src="https://img.icons8.com/?size=100&id=F6H2fsqXKBwH&format=png&color=000000" />][website]
