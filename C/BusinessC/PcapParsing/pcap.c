@@ -1,14 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <pcap.h>
-#include <netdb.h>
-#include <getopt.h>
-#include <arpa/inet.h>
-#include <netinet/ip.h>
-#include <netinet/tcp.h>
-#include <netinet/udp.h>
-
-char errbuf[PCAP_ERRBUF_SIZE];
+#include "pcap.h"
 
 void local_net()
 {
@@ -78,29 +68,12 @@ void parse_packet(const struct pcap_pkthdr *header, const u_char *packet)
 		printf("-----------------------------------------------\n");
 }
 
-int main(int argc, char **argv)
+void parse(char *filename)
 {
-		char *filename = NULL;
-		int opt;
-		pcap_t *handle;
+
 		struct pcap_pkthdr header;
 		const u_char *packet;
-
-		local_net();
-    	
-		while((opt = getopt(argc, argv, "f:")) != -1){
-			switch(opt){
-					case 'f':
-							filename = optarg;
-							break;
-					default:
-						exit(EXIT_FAILURE);
-			}
-		}
-
-		if(filename == NULL){
-			exit(EXIT_FAILURE);
-		}
+		pcap_t *handle;
 
 		handle = pcap_open_offline(filename, errbuf);
 		if(handle == NULL){
@@ -112,6 +85,4 @@ int main(int argc, char **argv)
 		}
 
 		pcap_close(handle);
-
-		return 0;
-}
+}	
