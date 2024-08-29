@@ -14,7 +14,7 @@
 char errbuf[PCAP_ERRBUF_SIZE];
 
 void local_net();
-void parse_packet(const struct pcap_pkthdr *header, const u_char *packet);
-void parse(char *filename);
+void parse_packet(const struct pcap_pkthdr *header, const u_char *packet, FILE *output_file);
+void parse(char *filename, FILE *output_file);
 
 #endif

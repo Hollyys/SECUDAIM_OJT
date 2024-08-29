@@ -44,7 +44,7 @@ void local_net()
 	printf("------------------------------------------\n");
 }
 
-void parse_packet(const struct pcap_pkthdr *header, const u_char *packet)
+void parse_packet(const struct pcap_pkthdr *header, const u_char *packet, FILE *output_file)
 {
 		struct ip *ip_header;
 		struct tcphdr *tcp_header;
@@ -59,16 +59,18 @@ void parse_packet(const struct pcap_pkthdr *header, const u_char *packet)
 			dst_port = ntohs(tcp_header->dest);
 
 			
-			printf("%s:%u -> ", inet_ntoa(ip_header->ip_src), src_port);
-			printf("%s:%u ", inet_ntoa(ip_header->ip_dst), dst_port);
+			// printf("%s:%u -> ", inet_ntoa(ip_header->ip_src), src_port);
+			// printf("%s:%u ", inet_ntoa(ip_header->ip_dst), dst_port);
+			fprintf(output_file, "%s:%u -> ", inet_ntoa(ip_header->ip_src), src_port);
+			fprintf(output_file, "%s:%u ", inet_ntoa(ip_header->ip_dst), dst_port);
+			
 			l4proto = getprotobynumber(ip_header->ip_p);
-			printf("[%s]\n", l4proto->p_name);
+			// printf("[%s]\n", l4proto->p_name);
+			fprintf(output_file, "[%s]\n", l4proto->p_name);
 		}
-
-		printf("-----------------------------------------------\n");
 }
 
-void parse(char *filename)
+void parse(char *filename, FILE *output_file)
 {
 
 		struct pcap_pkthdr header;
@@ -81,7 +83,7 @@ void parse(char *filename)
 		}
 
 		while((packet = pcap_next(handle, &header)) != NULL){
-			parse_packet(&header, packet);
+			parse_packet(&header, packet, output_file);
 		}
 
 		pcap_close(handle);
