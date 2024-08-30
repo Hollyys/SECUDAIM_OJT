@@ -1,4 +1,6 @@
-#include "pcap.h"
+// pcap_parse.c
+
+#include "pcap_parse.h"
 
 void local_net()
 {
@@ -16,6 +18,7 @@ void local_net()
 		printf("%s\n",errbuf);
 		exit(1);
 	}
+
 	printf("Network interface name: %s\n",device);			
 
 	if(pcap_lookupnet(device, &netp, &maskp, errbuf) == -1)
@@ -69,10 +72,8 @@ void parse_packet(const struct pcap_pkthdr *header, const u_char *packet, FILE *
 			fprintf(output_file, "[%s]\n", l4proto->p_name);
 		}
 }
-
 void parse(char *filename, FILE *output_file)
 {
-
 		struct pcap_pkthdr header;
 		const u_char *packet;
 		pcap_t *handle;
@@ -87,4 +88,5 @@ void parse(char *filename, FILE *output_file)
 		}
 
 		pcap_close(handle);
-}	
+}
+

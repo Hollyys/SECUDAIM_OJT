@@ -1,5 +1,5 @@
-#ifndef PCAP_H
-#define PCAP_Hi
+#ifndef PCAP_PARSE_H
+#define PCAP_PARSE_H
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,15 +1,19 @@
-#include "pcap.h"
+#include "pcap_parse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
 #include <string.h>
 
+char errbuf[PCAP_ERRBUF_SIZE];
+
 int main(int argc, char **argv)
 {
 		char *pcap_filename = NULL;
 		int opt;
-	
+
+		memset(errbuf, 0, sizeof(errbuf));
+
 		while((opt = getopt(argc, argv, "f:")) != -1){
 			switch(opt){
 					case 'f':
