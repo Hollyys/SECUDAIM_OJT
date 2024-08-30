@@ -129,12 +129,3 @@ void create_join_thread()
     }
 	pthread_mutex_destroy(&print_mutex);
 }
-
-void setup_signal_handler()
-{
-    struct sigaction sa;
-    sa.sa_handler = signal_handler;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGINT, &sa, NULL);
-}
