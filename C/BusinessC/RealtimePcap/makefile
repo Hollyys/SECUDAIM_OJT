@@ -3,7 +3,7 @@ CC = gcc
 # Compile Options
 CFLAGS = -Wall -g
 # External Library
-LIBS = 
+LIBS = -lpcap
 
 # Target file name (executable file name)
 TARGET = run
