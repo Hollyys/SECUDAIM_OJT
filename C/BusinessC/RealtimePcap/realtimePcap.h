@@ -8,7 +8,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#define ROTATE 2
+#define ROTATE 3
 
 char* filename();
 int capture();
