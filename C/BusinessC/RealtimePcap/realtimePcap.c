@@ -1,5 +1,15 @@
 #include "realtimePcap.h"
 
+void signal_handler(int sig)
+{
+	if(sig == SIGTERM){
+		// do something
+		const char *message = "SIGTERM RECEIVED.\n";
+		write(STDOUT_FILENO, message, 20);
+	}
+	exit(0);
+
+}
 char* filename()
 {
 
@@ -35,9 +45,15 @@ int capture()
     if(handle == NULL){
         fprintf(stderr, "Couldn't open device %s: %s\n", dev, errbuf);
         return 1;
-    } 
+    }
 
-for(int i=0; i<ROTATE; i++)
+	if(signal(SIGTERM, signal_handler) == SIG_ERR)
+	{
+		printf("Fail to signal(SIGTERM): %m\n");
+		return -1;
+	}
+
+	while(1)
     {
         char *file_name = filename();
 
