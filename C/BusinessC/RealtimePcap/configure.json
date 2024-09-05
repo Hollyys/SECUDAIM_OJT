@@ -1,0 +1,4 @@
+{
+	"interface": "eno1",
+	"pcap_dir": "./pcap"
+}
