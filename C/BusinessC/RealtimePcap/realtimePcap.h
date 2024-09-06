@@ -9,6 +9,8 @@
 #include <unistd.h>
 #include <signal.h>
 
+#include "parser.h"
+
 #define ROTATE 10
 
 char* filename();

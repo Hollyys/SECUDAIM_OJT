@@ -26,6 +26,9 @@ char* filename()
 
 int capture()
 {
+	char interface[10];
+	char pcap_dir[10];
+
     pcap_t *handle;
     pcap_dumper_t *dumper;
 
@@ -34,6 +37,12 @@ int capture()
 
     char *dev;
     char errbuf[PCAP_ERRBUF_SIZE];
+
+	parse_configure(interface, pcap_dir);
+
+	printf("**** JSON PARSE RESULT ****\n");
+	printf("interface : %s\n", interface);
+	printf("pcap dir : %s\n", pcap_dir);
 
     dev = pcap_lookupdev(errbuf);
     if (dev == NULL) {
@@ -82,5 +91,6 @@ int capture()
     pcap_close(handle);
 
     return 0;
+
 }
   
