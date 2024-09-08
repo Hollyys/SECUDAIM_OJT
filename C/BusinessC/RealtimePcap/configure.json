@@ -1,4 +1,4 @@
 {
-	"interface": "enp0s3",
+	"interface": "default",
 	"pcap_dir": "./pcap"
 }
