@@ -43,7 +43,8 @@ int capture()
 	printf("interface : %s\n", interface);
 	printf("pcap dir : %s\n", pcap_dir);
 
-    dev = pcap_lookupdev(errbuf);
+    //dev = pcap_lookupdev(errbuf);
+	dev = interface;
     if (dev == NULL) {
         fprintf(stderr, "Couldn't find default device: %s\n", errbuf);
         return 1;

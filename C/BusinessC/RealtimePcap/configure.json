@@ -1,4 +1,4 @@
 {
-	"interface": "eno1",
+	"interface": "enp0s3",
 	"pcap_dir": "./pcap"
 }
