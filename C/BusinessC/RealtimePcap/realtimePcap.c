@@ -10,6 +10,7 @@ void signal_handler(int sig)
 	exit(0);
 
 }
+
 char* filename()
 {
 
@@ -17,10 +18,8 @@ char* filename()
     struct tm *local_time = localtime(&current_time);
 
     char *file_name = (char *)malloc(40 * sizeof(char));
-    strftime(file_name, 40, "./pcap/%Y_%m_%d_%H_%M.pcap", local_time);
+    strftime(file_name, 40, "/%Y_%m_%d_%H_%M.pcap", local_time);
     
-    printf("%s\n", file_name);
-
     return file_name;
 }
 
@@ -64,7 +63,10 @@ int capture()
 
 	while(1)
     {
-        char *file_name = filename();
+        char *file_name = (char*)malloc(41);
+		strcpy(file_name, pcap_dir);
+		strcat(file_name, filename());
+    	printf("%s\n", file_name);
 
         dumper = pcap_dump_open(handle, file_name);
         if (dumper == NULL) {
