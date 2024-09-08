@@ -67,15 +67,18 @@ int capture()
 
 	while(1)
     {
-        char *file_name = (char*)malloc(41);
-		strcpy(file_name, pcap_dir);
-		strcat(file_name, filename());
-    	printf("%s\n", file_name);
+        char *FILE_SAVE_INFO = (char*)malloc(41);
+		char *FILE_NAME = filename();
 
-        dumper = pcap_dump_open(handle, file_name);
+		strcpy(FILE_SAVE_INFO, pcap_dir);
+		strcat(FILE_SAVE_INFO, FILE_NAME);
+    	printf("%s\n", FILE_SAVE_INFO);
+		free(FILE_NAME);
+
+        dumper = pcap_dump_open(handle, FILE_SAVE_INFO);
         if (dumper == NULL) {
             fprintf(stderr, "Couldn't open dump file: %s\n", pcap_geterr(handle));
-            free(file_name);
+            free(FILE_SAVE_INFO);
             return 1;
         }
         printf("Caturing Pcap...\n");
@@ -90,8 +93,8 @@ int capture()
 
         pcap_dump_close(dumper);
 
-        printf("File saved on %s\n", file_name);
-        free(file_name);
+        printf("File saved on %s\n", FILE_SAVE_INFO);
+        free(FILE_SAVE_INFO);
     }
 
     pcap_close(handle);
