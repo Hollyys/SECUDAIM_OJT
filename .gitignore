@@ -117,3 +117,10 @@ $RECYCLE.BIN/
 # Notebook
 .ipynb_checkpoints
 */.ipynb_checkpoints
+
+# Pcap File
+*.cap
+*.pcap
+
+# Nohup
+nohup.out
