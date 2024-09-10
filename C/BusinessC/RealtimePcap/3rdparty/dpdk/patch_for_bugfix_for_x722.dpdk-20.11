@@ -1,0 +1,12 @@
+diff -urNp dpdk-20.11.old/drivers/net/i40e/i40e_ethdev.c dpdk-20.11/drivers/net/i40e/i40e_ethdev.c
+--- dpdk-20.11.old/drivers/net/i40e/i40e_ethdev.c	2020-11-28 03:48:48.000000000 +0900
++++ dpdk-20.11/drivers/net/i40e/i40e_ethdev.c	2021-02-18 12:10:04.170543718 +0900
+@@ -1535,7 +1535,7 @@ eth_i40e_dev_init(struct rte_eth_dev *de
+ 		return -EIO;
+ 	}
+ 	/* Firmware of SFP x722 does not support adminq option */
+-	if (hw->device_id == I40E_DEV_ID_SFP_X722)
++    if (hw->mac.type == I40E_MAC_X722)
+ 		hw->flags &= ~I40E_HW_FLAG_802_1AD_CAPABLE;
+ 
+ 	PMD_INIT_LOG(INFO, "FW %d.%d API %d.%d NVM %02d.%02d.%02d eetrack %04x",

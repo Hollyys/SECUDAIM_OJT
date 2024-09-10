@@ -1,0 +1,4 @@
+{
+	"interface": "default",
+	"pcap_dir": "./pcap"
+}
