@@ -2,18 +2,6 @@
 
 static volatile sig_atomic_t sigusr1_flag = 0;
 
-static void save_child_pid(void) {
-    FILE *fp = fopen("/var/run/sn_cd.pid", "w+");
-    pid_t pid_val = getpid();
-    char pid_str[64];
-
-    if (fp) {
-        sprintf(pid_str, "%u", pid_val);
-        fwrite(pid_str, strlen(pid_str), 1, fp); 
-        fclose(fp);
-    }   
-}
-
 /**
  * \brief Signal handler used to take the parent process out of stand-by
  */
@@ -92,8 +80,6 @@ void daemonize(){
 
         /* Child is ready, tell its parent */
         tell_waiting_parent(getppid());
-
-        // save_child_pid();
 
         /* Daemon is up and running */
         // trace("Daemon is running");
