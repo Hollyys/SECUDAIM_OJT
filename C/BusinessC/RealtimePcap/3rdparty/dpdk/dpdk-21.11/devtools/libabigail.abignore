@@ -1,0 +1,13 @@
+[suppress_function]
+        symbol_version = EXPERIMENTAL
+[suppress_variable]
+        symbol_version = EXPERIMENTAL
+
+[suppress_function]
+        symbol_version = INTERNAL
+[suppress_variable]
+        symbol_version = INTERNAL
+
+; Ignore generated PMD information strings
+[suppress_variable]
+        name_regexp = _pmd_info$

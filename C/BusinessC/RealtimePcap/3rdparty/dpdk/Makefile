@@ -6,4 +6,5 @@ all:
 
 clean:
 	rm -rf dpdk-20.11
+	rm -rf dpdk-21.11
 	rm -rf dpdk-kmods

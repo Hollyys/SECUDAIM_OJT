@@ -1,4 +1,3 @@
-### C ###
 # Prerequisites
 *.d
 
@@ -124,3 +123,6 @@ $RECYCLE.BIN/
 
 # Nohup
 nohup.out
+
+# 3rd Party
+~/jupy/SECUDAIM_OJT/C/BusinessC/RealtimePcap/3rdparty/*
