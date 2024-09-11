@@ -1,5 +1,5 @@
-#ifndef REALTIMEPCAP_H
-#define REALTIMEPCAP_H
+#ifndef REALTIME_H
+#define REALTIME_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,9 +9,11 @@
 #include <unistd.h>
 #include <signal.h>
 
-#include "parser.h"
-
 #define ROTATE 10
+
+#define pcap 1
+#define dpdk 2
+#define napatech 3
 
 char* filename();
 int capture();

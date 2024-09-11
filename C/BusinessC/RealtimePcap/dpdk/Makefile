@@ -8,7 +8,7 @@ LIBS = -lpcap
 # Target file name (executable file name)
 TARGET = run
 # Source file (*.c)
-SRCS = main.c realtimePcap.c parser.c parson.c daemon.c
+SRCS = main.c parser.c parson.c daemon.c adapter.c adapter_pcap.c
 # Object file (*.o)
 OBJS = $(SRCS:.c=.o)
 

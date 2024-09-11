@@ -5,6 +5,12 @@
 
 #include "parson.h"
 
-void parse_configure(char* interface, char* pcap_dir);
+typedef struct{
+	char interface[10];
+	char pcap_dir[30];
+	char adapter[10];
+	} Config;
+
+void parse_configure(Config* config);
 
 #endif
