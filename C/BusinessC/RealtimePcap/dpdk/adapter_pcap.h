@@ -1,5 +1,5 @@
-#ifndef REALTIMEPCAP_H
-#define REALTIMEPCAP_H
+#ifndef ADAPTER_PCAP_H
+#define ADAPTER_PCAP_H
 
 #include <stdio.h>
 #include <stdlib.h>
