@@ -17,12 +17,8 @@
 
 #define ROTATE 10
 
-#define pcap 1
-#define dpdk 2
-#define napatech 3
 
-char* filename();
 int pcap_capture(Config* config);
-void signal_handler(int sig);
+
 
 #endif

@@ -1,3 +1,11 @@
+#include <stdio.h>
+#include <unistd.h>
+
+#include "adapter.h"
+#include "adapter_pcap.h"
+#include "daemon.h"
+#include "parser.h"
+#include "signal.h"
 #include "main.h"
 
 int main(int argc, char **argv) {
@@ -26,10 +34,14 @@ int main(int argc, char **argv) {
 		case ADAPTER_TYPE_PCAP:
 			// Do Pcap.
 			pcap_capture(&config);
+			break;
 		case ADAPTER_TYPE_DPDK:
 			// Do DPDK.
+			break;
 		case ADAPTER_TYPE_NAPATECH:
 			// Do NAPATECH.
+			break;
+		}
     
 	return 0;
 }
