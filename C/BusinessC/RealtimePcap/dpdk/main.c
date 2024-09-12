@@ -20,18 +20,22 @@ int main(int argc, char **argv) {
 			default:
 				// daemonize on usual mode.
 				daemonize();
+				break;
 		}
 	}
 
 	Config config;
+	printf("Configuration Generated.\n");
 	// Json Configuration Structure
 
 	parse_configure(&config);
+	printf("Configuration Parsed.\n");
 	// Add config option on here
 	
 	switch(adapter_init(&config)){
 		case ADAPTER_TYPE_PCAP:
 			// Do Pcap.
+			printf("Enter PCAP Capture.\n");
 			pcap_capture(&config);
 			break;
 		case ADAPTER_TYPE_DPDK:

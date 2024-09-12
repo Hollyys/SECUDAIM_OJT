@@ -2,7 +2,7 @@
 
 void parse_configure(Config* config)
 {
-	JSON_Value *rootValue = json_parse_file("configure.json");
+	JSON_Value *rootValue = json_parse_file("Configure.json");
 	JSON_Object *rootObject = json_value_get_object(rootValue);
 
 	strcpy(config->interface, json_object_get_string(rootObject, "interface"));
