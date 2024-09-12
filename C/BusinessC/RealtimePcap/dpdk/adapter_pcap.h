@@ -10,9 +10,8 @@
 #include <signal.h>
 
 #include "adapter.h"
-#include "adapter_pcap.h"
-#include "daemon.h"
 #include "parser.h"
+#include "daemon.h"
 #include "signal.h"
 
 #define ROTATE 10

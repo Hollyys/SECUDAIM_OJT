@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "parser.h"
 #include "adapter.h"
 #include "adapter_pcap.h"
 #include "daemon.h"
-#include "parser.h"
 #include "signal.h"
-#include "main.h"
 
 int main(int argc, char **argv) {
 	int opt;

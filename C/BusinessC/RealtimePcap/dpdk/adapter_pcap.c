@@ -36,7 +36,7 @@ int pcap_capture(Config* config)
 	while(1)
     {
 		char *FILE_SAVE_INFO = (char *)malloc(17 * sizeof(char));
-		FILE_SAVE_INFO = init_file(); 
+		FILE_SAVE_INFO = init_file(config); 
 		
         dumper = pcap_dump_open(handle, FILE_SAVE_INFO);
         if (dumper == NULL) {

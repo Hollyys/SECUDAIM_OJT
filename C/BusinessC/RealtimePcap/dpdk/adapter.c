@@ -1,13 +1,12 @@
-#include <adapter.h>
-#include <parser.h>
+#include "adapter.h"
 
 int adapter_init(Config *config)
 {
-	if (!strncasecmp(config->adapter, "pcap", 4)){
+	if (!strncasecmp(config->adapter_type, "pcap", 4)){
 		return ADAPTER_TYPE_PCAP;
-	} else if(!strncasecmp(adapter_type, "napatech", 8)){
+	} else if(!strncasecmp(config->adapter_type, "napatech", 8)){
 		return ADAPTER_TYPE_NAPATECH;
-	} else if(!strncasecmp(adapter_type, "dpdk", 4)){
+	} else if(!strncasecmp(config->adapter_type, "dpdk", 4)){
 		return ADAPTER_TYPE_DPDK;
 	} else{
 		return -1;
@@ -26,12 +25,12 @@ char* filename()
     return file_name;
 }
 
-char* init_file()
+char* init_file(Config *config)
 {	
-	char *FILE_SAVE_INFO = (char*)malloc(41);
-	char *FILE_NAME = filename();
+	char* FILE_SAVE_INFO = (char*)malloc(41);
+	char* FILE_NAME = filename();
 
-	strcpy(FILE_SAVE_INFO, pcap_dir);
+	strcpy(FILE_SAVE_INFO, config->pcap_dir);
 	strcat(FILE_SAVE_INFO, FILE_NAME);
     
 	free(FILE_NAME);

@@ -1,5 +1,5 @@
-#ifndef REALTIME_H
-#define REALTIME_H
+#ifndef ADAPTER_H
+#define ADAPTER_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +11,6 @@
 #include <signal.h>
 
 #include "parser.h"
-#include "signal.h"
 
 #define ROTATE 10
 
@@ -21,6 +20,6 @@
 
 int adapter_init(Config *config);
 char* filename();
-char* init_file();
+char* init_file(Config *config);
 
 #endif
