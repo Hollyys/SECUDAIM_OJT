@@ -48,21 +48,18 @@ int pcap_capture(Config* config)
         time_t start_time = time(NULL);
 
         while (difftime(time(NULL), start_time) < 60) {
-			switch(adapter) {
-            	packet = pcap_next(handle, &header);
-            	if (packet != NULL) {
-                	pcap_dump((u_char *)dumper, &header, packet);
-            	}
+            packet = pcap_next(handle, &header);
+            if (packet != NULL) {
+               	pcap_dump((u_char *)dumper, &header, packet);
+            }
         }
 
         pcap_dump_close(dumper);
-
         free(FILE_SAVE_INFO);
     }
 
     pcap_close(handle);
 
     return 0;
-
 }
   

@@ -9,7 +9,11 @@
 #include <unistd.h>
 #include <signal.h>
 
+#include "adapter.h"
+#include "adapter_pcap.h"
+#include "daemon.h"
 #include "parser.h"
+#include "signal.h"
 
 #define ROTATE 10
 
@@ -18,7 +22,7 @@
 #define napatech 3
 
 char* filename();
-int capture();
+int pcap_capture(Config* config);
 void signal_handler(int sig);
 
 #endif

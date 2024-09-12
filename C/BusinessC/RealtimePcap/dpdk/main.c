@@ -1,16 +1,11 @@
-#include <stdio.h>
-#include <unistd.h>
+#include "main.h"
 
-#include "realtimePcap.h"
-#include "adapter.h"
-#include "daemon.h"
-#include "parser.h"
-
-int main() {
+int main(int argc, char **argv) {
+	int opt;
 
 	while((opt = getopt(argc, argv, "t")) != -1){
 		switch(opt){
-			case 't';
+			case 't':
 				// -t option for test mode.
 				// No Daemonize on test mode.
 				printf("### TEST MODE ###\n");
@@ -30,6 +25,7 @@ int main() {
 	switch(adapter_init(&config)){
 		case ADAPTER_TYPE_PCAP:
 			// Do Pcap.
+			pcap_capture(&config);
 		case ADAPTER_TYPE_DPDK:
 			// Do DPDK.
 		case ADAPTER_TYPE_NAPATECH:

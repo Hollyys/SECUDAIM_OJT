@@ -4,6 +4,10 @@
 #include <string.h>
 
 #include "parson.h"
+#include "adapter.h"
+#include "adapter_pcap.h"
+#include "daemon.h"
+#include "signal.h"
 
 typedef struct{
 	char interface[10];

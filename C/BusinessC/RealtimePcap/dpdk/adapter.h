@@ -3,20 +3,24 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <pcap.h>
 #include <signal.h>
 #include <time.h>
 #include <unistd.h>
 #include <signal.h>
 
+#include "parser.h"
+#include "signal.h"
+
 #define ROTATE 10
 
-#define pcap 1
-#define dpdk 2
-#define napatech 3
+#define ADAPTER_TYPE_PCAP 1
+#define ADAPTER_TYPE_DPDK 2
+#define ADAPTER_TYPE_NAPATECH 3
 
+int adapter_init(Config *config);
 char* filename();
-int capture();
-void signal_handler(int sig);
+char* init_file();
 
 #endif

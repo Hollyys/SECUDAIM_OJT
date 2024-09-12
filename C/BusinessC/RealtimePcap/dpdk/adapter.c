@@ -1,10 +1,6 @@
 #include <adapter.h>
 #include <parser.h>
 
-#define ADAPTER_TYPE_PCAP 1
-#define ADAPTER_TYPE_DPDK 2
-#define ADAPTER_TYPE_NAPATECH 3
-
 int adapter_init(Config *config)
 {
 	if (!strncasecmp(config->adapter, "pcap", 4)){
