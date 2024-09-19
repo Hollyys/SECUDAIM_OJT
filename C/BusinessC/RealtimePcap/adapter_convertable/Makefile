@@ -3,12 +3,12 @@ CC = gcc
 # Compile Options
 CFLAGS = -Wall -g
 # External Library
-LIBS = -lpcap
+LIBS = $(pkg-config --cflags --libs libdpdk) -lpcap
 
 # Target file name (executable file name)
 TARGET = run
 # Source file (*.c)
-SRCS = parser.c parson.c adapter.c adapter_pcap.c signal.c daemon.c main.c
+SRCS = parser.c parson.c adapter.c adapter_pcap.c adapter_dpdk.c signal.c daemon.c main.c
 # Object file (*.o)
 OBJS = $(SRCS:.c=.o)
 

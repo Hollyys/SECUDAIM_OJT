@@ -4,11 +4,13 @@
 #include "parser.h"
 #include "adapter.h"
 #include "adapter_pcap.h"
+#include "adapter_dpdk.h"
 #include "daemon.h"
 #include "signal.h"
 
 int main(int argc, char **argv) {
 	int opt;
+	int test_flag = 0;
 
 	while((opt = getopt(argc, argv, "t")) != -1){
 		switch(opt){
@@ -16,12 +18,17 @@ int main(int argc, char **argv) {
 				// -t option for test mode.
 				// No Daemonize on test mode.
 				printf("### TEST MODE ###\n");
+				test_flag = 1;
 				break;
 			default:
 				// daemonize on usual mode.
-				daemonize();
+				test_flag = 0;
 				break;
 		}
+	}
+	
+	if(test_flag == 0){
+		daemonize();
 	}
 
 	Config config;
@@ -40,6 +47,8 @@ int main(int argc, char **argv) {
 			break;
 		case ADAPTER_TYPE_DPDK:
 			// Do DPDK.
+			dpdk_init(argc, argv, 2);
+			dpdk_capture(&config);
 			break;
 		case ADAPTER_TYPE_NAPATECH:
 			// Do NAPATECH.
