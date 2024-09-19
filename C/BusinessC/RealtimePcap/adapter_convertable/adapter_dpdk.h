@@ -1,5 +1,5 @@
-#ifndef ADAPTER_PCAP_H
-#define ADAPTER_PCAP_H
+#ifndef ADAPTER_DPDK_H
+#define ADAPTER_DPDK_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,15 +15,14 @@
 #include "adapter.h"
 #include "parser.h"
 #include "daemon.h"
-#include "signal.h"
-
-#define ROTATE 
+#include "signal.h" 
 
 #define NUM_MBUFS 8191
 #define BURST_SIZE 32
+#define PORT_ID 2
 
-void dpdk_init(int argc, char *argv[], uint16_t port_id) {
-int dpdk_capture(Config* config);
+void dpdk_init(int argc, char *argv[], uint16_t port_id);
+int dpdk_capture(Config* config, uint16_t port_id);
 
 
 #endif

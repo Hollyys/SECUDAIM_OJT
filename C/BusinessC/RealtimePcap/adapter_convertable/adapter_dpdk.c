@@ -8,7 +8,7 @@ void dpdk_init(int argc, char *argv[], u_int16_t port_id) {
         rte_exit(EXIT_FAILURE, "Error with EAL initialization\n");
 
     struct rte_eth_conf port_conf = {
-        .rxmode = { .max_rx_pkt_len = ETHER_MAX_LEN }
+        .rxmode = { .max_lro_pkt_size = RTE_ETHER_MAX_LEN }
     };
 
     ret = rte_eth_dev_configure(port_id, 1, 1, &port_conf);
@@ -26,19 +26,20 @@ void dpdk_init(int argc, char *argv[], u_int16_t port_id) {
         rte_exit(EXIT_FAILURE, "Error starting the port\n");
 }
 
-int dpdk_capture(Config* config)
-{
+int dpdk_capture(Config* config, uint16_t port_id) {
 	pcap_t *handle;
     pcap_dumper_t *dumper;
-    char errbuf[PCAP_ERRBUF_SIZE];
 
-	handle = pcap_open_dead(DLT_EN10MB, ETHER_MAX_LEN);
+	handle = pcap_open_dead(DLT_EN10MB, RTE_ETHER_MAX_LEN);
 
 	if(signal(SIGTERM, signal_handler) == SIG_ERR)
 	{
 		printf("Fail to signal(SIGTERM): %m\n");
 		return -1;
 	}
+
+	struct rte_mbuf *bufs[BURST_SIZE];
+    struct pcap_pkthdr header;
 
 	while(1)
     {
@@ -75,6 +76,8 @@ int dpdk_capture(Config* config)
     }
 
     pcap_close(handle);
+	rte_eth_dev_stop(port_id);
+    rte_eth_dev_close(port_id);
 
     return 0;
 }

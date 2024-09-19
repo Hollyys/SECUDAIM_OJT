@@ -1,9 +1,23 @@
+# DPDK IFLAGS
+IFLAGS += -I../dpdk-21.11/config
+IFLAGS += -I../dpdk-21.11/build
+IFLAGS += -I../dpdk-21.11/lib/net
+IFLAGS += -I../dpdk-21.11/lib/meter
+IFLAGS += -I../dpdk-21.11/lib/ethdev
+IFLAGS += -I../dpdk-21.11/lib/mempool
+IFLAGS += -I../dpdk-21.11/lib/mbuf
+IFLAGS += -I../dpdk-21.11/lib/ring
+IFLAGS += -I../dpdk-21.11/lib/eal/include
+IFLAGS += -I../dpdk-21.11/lib/eal/linux/include
+IFLAGS += -I../dpdk-21.11/lib/eal/x86/include
+
 #  Compiler
 CC = gcc
 # Compile Options
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g $(IFLAGS) -mssse3
 # External Library
-LIBS = $(pkg-config --cflags --libs libdpdk) -lpcap
+LIBS = -lpcap
+LIBS += -L../dpdk-21.11/build/lib -lrte_eal -lrte_mempool -lrte_ring -lrte_ethdev -lrte_mbuf -lrte_hash
 
 # Target file name (executable file name)
 TARGET = run
@@ -17,7 +31,7 @@ all: $(TARGET)
 
 # Rule for generate executable files
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAG) -o $(TARGET) $(OBJS) $(LIBS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(LIBS)
 
 # Rule for generate Object files
 %.o: %.c

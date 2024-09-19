@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
 		case ADAPTER_TYPE_DPDK:
 			// Do DPDK.
 			dpdk_init(argc, argv, 2);
-			dpdk_capture(&config);
+			dpdk_capture(&config, 2);
 			break;
 		case ADAPTER_TYPE_NAPATECH:
 			// Do NAPATECH.
