@@ -1,29 +1,46 @@
 #include "adapter_dpdk.h"
 
 void dpdk_init(int argc, char *argv[], u_int16_t port_id) {
-    int ret;
-
+	int ret;
     ret = rte_eal_init(argc, argv);
-    if (ret < 0)
+    if (ret < 0){
         rte_exit(EXIT_FAILURE, "Error with EAL initialization\n");
+	}
+	
+	printf("> Finding Port ID\n");
+
+	u_int16_t num_ports = rte_eth_dev_count_avail();
+	printf("> Available ports: %u\n", num_ports);
+	if (num_ports == 0){
+		rte_exit(EXIT_FAILURE, "Error with No Ethernet Port\n");
+	}
+	
+	for (uint16_t id = 0; id < num_ports; id++) {
+    	struct rte_eth_dev_info dev_info;
+    	rte_eth_dev_info_get(id, &dev_info);
+    	printf("> Port %u: Driver name: %s\n", id, dev_info.driver_name);
+	}
 
     struct rte_eth_conf port_conf = {
         .rxmode = { .max_lro_pkt_size = RTE_ETHER_MAX_LEN }
     };
 
     ret = rte_eth_dev_configure(port_id, 1, 1, &port_conf);
-    if (ret != 0)
+    if (ret != 0){
         rte_exit(EXIT_FAILURE, "Error configuring the port\n");
+	}
 
     ret = rte_eth_rx_queue_setup(port_id, 0, 128, rte_eth_dev_socket_id(port_id), NULL,
                                  rte_pktmbuf_pool_create("MBUF_POOL", NUM_MBUFS, 32, 0,
                                                          RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id()));
-    if (ret < 0)
+    if (ret < 0){
         rte_exit(EXIT_FAILURE, "Error setting up RX queue\n");
+	}
 
     ret = rte_eth_dev_start(port_id);
-    if (ret < 0)
+    if (ret < 0){
         rte_exit(EXIT_FAILURE, "Error starting the port\n");
+	}
 }
 
 int dpdk_capture(Config* config, uint16_t port_id) {
