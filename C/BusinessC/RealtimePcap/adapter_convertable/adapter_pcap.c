@@ -8,11 +8,21 @@ int pcap_capture(Config* config)
     struct pcap_pkthdr header;
     const u_char *packet;
 
+    pcap_if_t *alldevs, *d;
     char *dev;
     char errbuf[PCAP_ERRBUF_SIZE];
     
-	if(strcmp(config->interface, "default") == 0)
-		dev = pcap_lookupdev(errbuf);
+	if(strcmp(config->interface, "default") == 0) {
+		// dev = pcap_lookupdev(errbuf);
+        if(pcap_findalldevs(&alldevs, errbuf) == -1) {
+            fprintf(stderr, "Couldn't find default device: %s\n", errbuf);
+            return 1;
+        }
+        d = alldevs;
+        dev = d->name;
+        pcap_freealldevs(alldevs);
+    }
+
 	else
 		dev = config->interface;
 

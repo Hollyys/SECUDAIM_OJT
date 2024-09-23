@@ -1,5 +1,5 @@
 {
-	"interface": "default",
+	"interface": "eno1",
 	"pcap_dir": "./pcap",
-	"adapter_type": "dpdk"
+	"adapter_type": "default"
 }
