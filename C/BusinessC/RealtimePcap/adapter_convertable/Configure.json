@@ -1,5 +1,5 @@
 {
-	"interface": "eno1",
+	"interface": "default",
 	"pcap_dir": "./pcap",
-	"adapter_type": "default"
+	"adapter_type": "pcap"
 }

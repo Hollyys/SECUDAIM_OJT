@@ -59,6 +59,9 @@ int main(int argc, char **argv) {
 			// Do NAPATECH.
 			printf("> Enter NAPATECH Capture.\n");
 			break;
+        default:
+            printf("Fail to read Adapter Type\n");
+            return -1;
 		}
     
 	return 0;
