@@ -1,5 +1,0 @@
-{
-	"interface": "default",
-	"pcap_dir": "./pcap",
-	"adapter_type": "pcap"
-}
