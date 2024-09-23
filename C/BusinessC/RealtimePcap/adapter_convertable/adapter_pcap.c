@@ -18,24 +18,32 @@ int pcap_capture(Config* config)
             fprintf(stderr, "Couldn't find default device: %s\n", errbuf);
             return 1;
         }
-        d = alldevs;
-        dev = d->name;
+        
+        for (d = alldevs; d != NULL; d = d->next) { 
+            handle = pcap_open_live(d->name, BUFSIZ, 1, 1000, errbuf);
+            if (handle != NULL) {
+                dev = d->name;
+                printf("> Select Dev: %s\n", dev);
+                break;
+            }
+        }
         pcap_freealldevs(alldevs);
     }
 
-	else
+	else {
 		dev = config->interface;
+    
+        handle = pcap_open_live(dev, BUFSIZ, 1, 1000, errbuf);
+        if(handle == NULL){
+            fprintf(stderr, "Couldn't open device %s: %s\n", dev, errbuf);
+            return 1;
+        }
+    }
 
     if (dev == NULL) {
         fprintf(stderr, "Couldn't find default device: %s\n", errbuf);
         return 1;
     }   
-
-    handle = pcap_open_live(dev, BUFSIZ, 1, 1000, errbuf);
-    if(handle == NULL){
-        fprintf(stderr, "Couldn't open device %s: %s\n", dev, errbuf);
-        return 1;
-    }
 
 	if(signal(SIGTERM, signal_handler) == SIG_ERR)
 	{
