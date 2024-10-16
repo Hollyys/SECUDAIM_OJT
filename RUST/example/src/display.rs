@@ -18,8 +18,6 @@ impl fmt::Display for Structure {
     }
 }
 
-use std::fmt; // Import `fmt`
-
 // A structure holding two numbers. `Debug` will be derived so the results can
 // be contrasted with `Display`.
 #[derive(Debug)]
@@ -48,8 +46,43 @@ impl fmt::Display for Point2D {
     }
 }
 
+#[derive(Debug)]
+struct Garage {
+    car1: i32,
+    car2: i32,
+}
+
+impl fmt::Display for Garage {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Car1: {}, Car2: {}", self.car1, self.car2)
+    }
+}
+
+impl fmt::Binary for Garage {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Car1: {:b}, Car2: {:b}", self.car1, self.car2)
+    }
+}
+
 fn main() {
+    let structure = Structure(911);
     let minmax = MinMax(0, 14);
+    let garage = Garage {
+        car1: 992,
+        car2: 997,
+    };
+
+    println!("Structure:");
+    println!("{}", structure);
+
+    println!("");
+
+    println!("Garage:");
+    println!("{}", garage);
+    println!("Debug?: {:?}", garage);
+    println!("Binary?: {:b}", garage);
+
+    println!("");
 
     println!("Compare structures:");
     println!("Display: {}", minmax);
@@ -57,6 +90,8 @@ fn main() {
 
     let big_range = MinMax(-300, 300);
     let small_range = MinMax(-3, 3);
+
+    println!("");
 
     println!(
         "The big range is {big} and the small is {small}",
